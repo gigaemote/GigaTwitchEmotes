@@ -1,4 +1,4 @@
-basePath = "Interface\\AddOns\\TwitchEmotes_Coomer\\emotes\\"
+basePath = "Interface\\AddOns\\GigaTwitchEmotes\\emotes\\"
 
 judhead_emotes = {
     -- Coomer Specfic Memes

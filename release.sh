@@ -6,11 +6,11 @@ source .env
 
 stage=${1:-alpha}
 
-version_mainline=$(grep "Version: " TwitchEmotes_Coomer-Mainline.toc | cut -d ' ' -f 3)
-version_classic=$(grep "Version: " TwitchEmotes_Coomer-Classic.toc | cut -d ' ' -f 3)
+version_mainline=$(grep "Version: " GigaTwitchEmotes-Mainline.toc | cut -d ' ' -f 3)
+version_classic=$(grep "Version: " GigaTwitchEmotes-Classic.toc | cut -d ' ' -f 3)
 
 [ "$version_mainline" == "$version_classic" ] || {
-    echo "Error: TwitchEmotes_Coomer-Mainline.toc is version $version_mainline, but TwitchEmotes_Coomer-Classic.toc is version $version_classic"
+    echo "Error: GigaTwitchEmotes-Mainline.toc is version $version_mainline, but GigaTwitchEmotes-Classic.toc is version $version_classic"
     exit 1
 }
 
@@ -36,7 +36,7 @@ gh release create \
     --verify-tag \
     --title "$version" \
     --notes "$version" \
-    "dist/TwitchEmotes_Coomer-$version.zip"
+    "dist/GigaTwitchEmotes-$version.zip"
 
 echo "Published version $version to GitHub"
 
