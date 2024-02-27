@@ -17,7 +17,7 @@ case $1 in
         ;;
 esac
 
-addon_build_path="dist/TwitchEmotes_Coomer"
+addon_build_path="dist/TwitchEmotes_Giga"
 
 [ -d "$addon_build_path" ] || {
     echo "'$addon_build_path' does not exist. Please run ./build.sh first"
@@ -29,6 +29,6 @@ addon_build_path="dist/TwitchEmotes_Coomer"
     exit 1
 }
 
-rm -rf "$wow_addon_path/TwitchEmotes_Coomer"
+rm -rf "$wow_addon_path/TwitchEmotes_Giga"
 
 cp -r "$addon_build_path" "$wow_addon_path"

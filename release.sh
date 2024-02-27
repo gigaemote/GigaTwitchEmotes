@@ -6,11 +6,11 @@ source .env
 
 stage=${1:-alpha}
 
-version_mainline=$(grep "Version: " TwitchEmotes_Coomer-Mainline.toc | cut -d ' ' -f 3)
-version_classic=$(grep "Version: " TwitchEmotes_Coomer-Classic.toc | cut -d ' ' -f 3)
+version_mainline=$(grep "Version: " TwitchEmotes_Giga-Mainline.toc | cut -d ' ' -f 3)
+version_classic=$(grep "Version: " TwitchEmotes_Giga-Classic.toc | cut -d ' ' -f 3)
 
 [ "$version_mainline" == "$version_classic" ] || {
-    echo "Error: TwitchEmotes_Coomer-Mainline.toc is version $version_mainline, but TwitchEmotes_Coomer-Classic.toc is version $version_classic"
+    echo "Error: TwitchEmotes_Giga-Mainline.toc is version $version_mainline, but TwitchEmotes_Giga-Classic.toc is version $version_classic"
     exit 1
 }
 
@@ -36,7 +36,7 @@ gh release create \
     --verify-tag \
     --title "$version" \
     --notes "$version" \
-    "dist/TwitchEmotes_Coomer-$version.zip"
+    "dist/TwitchEmotes_Giga-$version.zip"
 
 echo "Published version $version to GitHub"
 
@@ -56,7 +56,7 @@ echo "Published version $version to GitHub"
 #curl \
 #    -H "X-Api-Token: $CURSEFORGE_API_TOKEN" \
 #    -F metadata="$metadata" \
-#    -F file="@dist/TwitchEmotes_Coomer-$version.zip" \
+#    -F file="@dist/TwitchEmotes_Giga-$version.zip" \
 #    https://wow.curseforge.com/api/projects/947149/upload-file
 #
 #echo "Published version $version to CurseForge"

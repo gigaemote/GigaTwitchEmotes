@@ -4,8 +4,8 @@ Requires [Twitch Emotes v2](https://www.curseforge.com/wow/addons/twitch-emotes-
 
 Manual instructions:
 
-1. Go to https://github.com/galacticclam/TwitchEmotes_Coomer/releases/latest
-1. Extract `TwitchEmotes_Coomer` to your Addons directory.
+1. Go to https://github.com/gigaemote/GigaTwitchEmotes/releases/latest
+1. Extract `TwitchEmotes_Giga` to your Addons directory.
     * If you're playing retail, it's likely in `C:\Program Files (x86)\World of Warcraft\_retail_\Interface\Addons`
     * Classic is  `C:\Program Files (x86)\World of Warcraft\_classic_era_\Interface\Addons`
 1. Reload/restart WoW
@@ -13,7 +13,7 @@ Manual instructions:
 WowUp:
 
 1. Install https://wowup.io/
-1. In WowUp, install from URL with the URL `https://github.com/galacticclam/TwitchEmotes_Coomer`
+1. In WowUp, install from URL with the URL `https://github.com/gigaemote/GigaTwitchEmote`
 
 ## Development
 
@@ -38,11 +38,11 @@ winget install -e --id ImageMagick.ImageMagick
 
 ### Publishing a new version of this addon
 
-You need to be a contributor on the repo and a member of the [CurseForge project](https://legacy.curseforge.com/wow/addons/coomer-illidan-twitch-emotes) for this to work.
+You need to be a contributor on the repo and a member of the [CurseForge project](https://legacy.curseforge.com/wow/addons/giga-twitch-emotes) for this to work.
 
 1. Create an empty `.env` file in the repository root.
 1. Create a CurseForge API token and enter it in this file: `CURSEFORGE_API_TOKEN=...`
-1. Update the version number in `TwitchEmotes_Coomer-Mainline.toc` and `TwitchEmotes_Coomer-Classic.toc`
+1. Update the version number in `TwitchEmotes_Giga-Mainline.toc` and `TwitchEmotes_Giga-Classic.toc`
 1. Push the updated version numbers
 1. Run `./release.sh release`, or `./release.sh` for testing
 
