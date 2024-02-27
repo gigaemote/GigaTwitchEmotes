@@ -1,4 +1,4 @@
-## Installing
+## Installing PEPW
 
 Requires [Twitch Emotes v2](https://www.curseforge.com/wow/addons/twitch-emotes-v2)
 
