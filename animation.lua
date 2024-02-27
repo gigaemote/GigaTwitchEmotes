@@ -19,3 +19,5 @@ TwitchEmotes_animation_metadata[basePath .. "GAGGERS.tga"] = {["nFrames"] = 16, 
 TwitchEmotes_animation_metadata[basePath .. "awaree.tga"] = {["nFrames"] = 16, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 512, ["framerate"] = 12}
 TwitchEmotes_animation_metadata[basePath .. "Joeling.tga"] = {["nFrames"] = 8, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 256, ["framerate"] = 24}
 TwitchEmotes_animation_metadata[basePath .. "donut.tga"] = {["nFrames"] = 2, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 64, ["framerate"] = 12}
+TwitchEmotes_animation_metadata[basePath .. "deadlole.tga"] = {["nFrames"] = 71, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "DIEEE.tga"] = {["nFrames"] = 86, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 18}
