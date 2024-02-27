@@ -1,7 +1,6 @@
 ## Interface: 100205
 ## Version: 1.5.0
-## Title: TwitchEmotes [|cffeda55fCoomer|r]
-## IconTexture: Interface\AddOns\TwitchEmotes_Coomer\emotes\abigail.tga
+## Title: Giga Twitch Emotes
 ## Dependencies: TwitchEmotes
 emotes.lua
 animation.lua
