@@ -27,3 +27,7 @@ TwitchEmotes_animation_metadata[basePath .. "POGCRAZY.tga"] = {["nFrames"] = 2, 
 TwitchEmotes_animation_metadata[basePath .. "EATO.tga"] = {["nFrames"] = 65, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 30}
 TwitchEmotes_animation_metadata[basePath .. "ChugU.tga"] = {["nFrames"] = 54, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 30}
 TwitchEmotes_animation_metadata[basePath .. "DESKCHAN.tga"] = {["nFrames"] = 15, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 512, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "chickenWalk.tga"] = {["nFrames"] = 12, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 512, ["framerate"] = 9}
+TwitchEmotes_animation_metadata[basePath .. "NAUR.tga"] = {["nFrames"] = 5, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 256, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "NOOO.tga"] = {["nFrames"] = 5, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 256, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "JOHNSOULS.tga"] = {["nFrames"] = 81, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 30}
