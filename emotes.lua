@@ -98,4 +98,8 @@ judhead_emotes = {
     ["NAUR"] = basePath .. "NAUR.tga:56:28",
     ["NOOO"] = basePath .. "NOOO.tga:56:28",
     ["JOHNSOULS"] = basePath .. "JOHNSOULS.tga:56:28",
+    ["docPls"] = basePath .. "docPls.tga:56:28",
+    ["RapThis"] = basePath .. "RapThis.tga:56:28",
+    ["LICKA"] = basePath .. "LICKA.tga:56:28",
+    ["GETALIFE"] = basePath .. "GETALIFE.tga:56:28",
 }
