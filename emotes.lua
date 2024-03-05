@@ -137,8 +137,6 @@ judhead_emotes = {
     ["NOPE"] = basePath .. "NOPE.tga:56:28",
     ["Bocchi"] = basePath .. "Bocchi.tga:56:28",
     ["Lick"] = basePath .. "Lick.tga:56:28",
-    ["moon2Aware"] = basePath .. "moon2Aware.tga:56:28",
-    ["moon2Aware"] = basePath .. "moon2Aware.tga:56:28",
     ["Kissahomie"] = basePath .. "Kissahomie.tga:56:28",
     ["dpsCheck"] = basePath .. "dpsCheck.tga:56:28",
 }

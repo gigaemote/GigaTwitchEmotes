@@ -59,7 +59,5 @@ TwitchEmotes_animation_metadata[basePath .. "YES.tga"] = {["nFrames"] = 33, ["fr
 TwitchEmotes_animation_metadata[basePath .. "NOPE.tga"] = {["nFrames"] = 36, ["frameWidth"] = 40, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 2048, ["framerate"] = 30}
 TwitchEmotes_animation_metadata[basePath .. "Bocchi.tga"] = {["nFrames"] = 32, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 1024, ["framerate"] = 18}
 TwitchEmotes_animation_metadata[basePath .. "Lick.tga"] = {["nFrames"] = 31, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 1024, ["framerate"] = 18}
-TwitchEmotes_animation_metadata[basePath .. "moon2Aware.tga"] = {["nFrames"] = 30, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 1024, ["framerate"] = 8}
-TwitchEmotes_animation_metadata[basePath .. "moon2Aware.tga"] = {["nFrames"] = 21, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 1024, ["framerate"] = 18}
 TwitchEmotes_animation_metadata[basePath .. "Kissahomie.tga"] = {["nFrames"] = 29, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 1024, ["framerate"] = 18}
 TwitchEmotes_animation_metadata[basePath .. "dpsCheck.tga"] = {["nFrames"] = 28, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 1024, ["framerate"] = 9}
