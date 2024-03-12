@@ -127,3 +127,14 @@ TwitchEmotes_animation_metadata[basePath .. "ELPERMASSACRE.tga"] = {["nFrames"] 
 TwitchEmotes_animation_metadata[basePath .. "plink.tga"] = {["nFrames"] = 59, ["frameWidth"] = 80, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 2048, ["framerate"] = 30}
 TwitchEmotes_animation_metadata[basePath .. "moon2Gamba.tga"] = {["nFrames"] = 59, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 2048, ["framerate"] = 18}
 TwitchEmotes_animation_metadata[basePath .. "glorpShakey.tga"] = {["nFrames"] = 16, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 512, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "Whitemane.tga"] = {["nFrames"] = 24, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 1024, ["framerate"] = 9}
+TwitchEmotes_animation_metadata[basePath .. "moon2WGIF.tga"] = {["nFrames"] = 50, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "gachiHop.tga"] = {["nFrames"] = 49, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "gachiGold.tga"] = {["nFrames"] = 12, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 512, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "gachiOnFire.tga"] = {["nFrames"] = 8, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 256, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "gachiBOP.tga"] = {["nFrames"] = 20, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 1024, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "gachiW.tga"] = {["nFrames"] = 12, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 512, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "OOOO.tga"] = {["nFrames"] = 21, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 1024, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "Joel.tga"] = {["nFrames"] = 36, ["frameWidth"] = 96, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 2048, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "WHAT.tga"] = {["nFrames"] = 55, ["frameWidth"] = 33, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 2048, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "glorpHai.tga"] = {["nFrames"] = 2, ["frameWidth"] = 46, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 64, ["framerate"] = 3}
