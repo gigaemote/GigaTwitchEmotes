@@ -32,7 +32,7 @@ if [ $# -ge 4 ] ; then
     magick ${frames[@]} -resize "32x32" -append "$image_appended"
 else
     # TODO: Resize frames
-    magick import/dump_* -resize "128x32" -append "$image_appended"
+    magick import/dump_* -resize "32x32" -append "$image_appended"
 fi
 
 orig_h=$(magick identify -ping -format '%h' "$image_appended")
@@ -59,7 +59,7 @@ final_w=$(($final_w|($final_w>>16)))
 final_w=$(($final_w|($final_w>>32)))
 final_w=$(($final_w+1))
 
-magick "$image_appended" -background none -extent "128x${final_h}" "$image_final"
+magick "$image_appended" -background none -gravity North -extent "32x${final_h}" "$image_final"
 
 emotes_newline='["'$2'"] = basePath .. "'$2'.tga:56:28",'
 sed -i -e '$i\'"    $emotes_newline" emotes.lua

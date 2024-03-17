@@ -138,3 +138,12 @@ TwitchEmotes_animation_metadata[basePath .. "OOOO.tga"] = {["nFrames"] = 21, ["f
 TwitchEmotes_animation_metadata[basePath .. "Joel.tga"] = {["nFrames"] = 36, ["frameWidth"] = 96, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 2048, ["framerate"] = 30}
 TwitchEmotes_animation_metadata[basePath .. "WHAT.tga"] = {["nFrames"] = 55, ["frameWidth"] = 33, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 2048, ["framerate"] = 18}
 TwitchEmotes_animation_metadata[basePath .. "glorpHai.tga"] = {["nFrames"] = 2, ["frameWidth"] = 46, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 64, ["framerate"] = 3}
+TwitchEmotes_animation_metadata[basePath .. "UltraMad.tga"] = {["nFrames"] = 1, ["frameWidth"] = 38, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 32, ["framerate"] = 0}
+TwitchEmotes_animation_metadata[basePath .. "meandyouhorny.tga"] = {["nFrames"] = 8, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 256, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "IHATEYOU.tga"] = {["nFrames"] = 10, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 512, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "slorpglorp.tga"] = {["nFrames"] = 13, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 512, ["framerate"] = 9}
+TwitchEmotes_animation_metadata[basePath .. "BRB.tga"] = {["nFrames"] = 1, ["frameWidth"] = 33, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 32, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "DIDSOMEONESAYGLORP.tga"] = {["nFrames"] = 63, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 9}
+TwitchEmotes_animation_metadata[basePath .. "Mglorpy.tga"] = {["nFrames"] = 44, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "VeryGlorp.tga"] = {["nFrames"] = 95, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 12}
+TwitchEmotes_animation_metadata[basePath .. "PauseSNIPER.tga"] = {["nFrames"] = 1, ["frameWidth"] = 80, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 32, ["framerate"] = 18}
