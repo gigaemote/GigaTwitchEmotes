@@ -147,3 +147,4 @@ TwitchEmotes_animation_metadata[basePath .. "DIDSOMEONESAYGLORP.tga"] = {["nFram
 TwitchEmotes_animation_metadata[basePath .. "Mglorpy.tga"] = {["nFrames"] = 44, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 18}
 TwitchEmotes_animation_metadata[basePath .. "VeryGlorp.tga"] = {["nFrames"] = 95, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 12}
 TwitchEmotes_animation_metadata[basePath .. "PauseSNIPER.tga"] = {["nFrames"] = 1, ["frameWidth"] = 80, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 32, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "Crungo.tga"] = {["nFrames"] = 69, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 18}
