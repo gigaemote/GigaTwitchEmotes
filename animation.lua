@@ -148,3 +148,11 @@ TwitchEmotes_animation_metadata[basePath .. "Mglorpy.tga"] = {["nFrames"] = 44, 
 TwitchEmotes_animation_metadata[basePath .. "VeryGlorp.tga"] = {["nFrames"] = 95, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 12}
 TwitchEmotes_animation_metadata[basePath .. "PauseSNIPER.tga"] = {["nFrames"] = 1, ["frameWidth"] = 80, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 32, ["framerate"] = 18}
 TwitchEmotes_animation_metadata[basePath .. "Crungo.tga"] = {["nFrames"] = 69, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "WAITWAITWAIT.tga"] = {["nFrames"] = 172, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 8192, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "CatDriving.tga"] = {["nFrames"] = 184, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 8192, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "SEETHE.tga"] = {["nFrames"] = 60, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "glorpCHAT.tga"] = {["nFrames"] = 6, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 256, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "PIZZA.tga"] = {["nFrames"] = 50, ["frameWidth"] = 31, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 9}
+TwitchEmotes_animation_metadata[basePath .. "PUPW.tga"] = {["nFrames"] = 9, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 512, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "OfCourse.tga"] = {["nFrames"] = 49, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "sillyChamp.tga"] = {["nFrames"] = 50, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 30}
