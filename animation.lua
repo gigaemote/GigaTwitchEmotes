@@ -156,3 +156,15 @@ TwitchEmotes_animation_metadata[basePath .. "PIZZA.tga"] = {["nFrames"] = 50, ["
 TwitchEmotes_animation_metadata[basePath .. "PUPW.tga"] = {["nFrames"] = 9, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 512, ["framerate"] = 30}
 TwitchEmotes_animation_metadata[basePath .. "OfCourse.tga"] = {["nFrames"] = 49, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 18}
 TwitchEmotes_animation_metadata[basePath .. "sillyChamp.tga"] = {["nFrames"] = 50, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "HUHBibi.tga"] = {["nFrames"] = 1, ["frameWidth"] = 30, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 32, ["framerate"] = 0}
+TwitchEmotes_animation_metadata[basePath .. "OGAY.tga"] = {["nFrames"] = 0, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 32, ["framerate"] = 1}
+TwitchEmotes_animation_metadata[basePath .. "OGAY.tga"] = {["nFrames"] = 1, ["frameWidth"] = 37, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 32, ["framerate"] = 1}
+TwitchEmotes_animation_metadata[basePath .. "Dodge.tga"] = {["nFrames"] = 115, ["frameWidth"] = 57, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 4096, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "PISSIN.tga"] = {["nFrames"] = 10, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 512, ["framerate"] = 7}
+TwitchEmotes_animation_metadata[basePath .. "AnkhaPls.tga"] = {["nFrames"] = 51, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "ABOBA.tga"] = {["nFrames"] = 81, ["frameWidth"] = 69, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 4096, ["framerate"] = 40}
+TwitchEmotes_animation_metadata[basePath .. "campfire.tga"] = {["nFrames"] = 8, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 256, ["framerate"] = 9}
+TwitchEmotes_animation_metadata[basePath .. "Pressed.tga"] = {["nFrames"] = 75, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "LETHIMSHAKEY.tga"] = {["nFrames"] = 26, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 1024, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "MMMM.tga"] = {["nFrames"] = 44, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "beyumiJAM.tga"] = {["nFrames"] = 60, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 30}
