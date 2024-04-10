@@ -168,3 +168,11 @@ TwitchEmotes_animation_metadata[basePath .. "Pressed.tga"] = {["nFrames"] = 75, 
 TwitchEmotes_animation_metadata[basePath .. "LETHIMSHAKEY.tga"] = {["nFrames"] = 26, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 1024, ["framerate"] = 30}
 TwitchEmotes_animation_metadata[basePath .. "MMMM.tga"] = {["nFrames"] = 44, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 18}
 TwitchEmotes_animation_metadata[basePath .. "beyumiJAM.tga"] = {["nFrames"] = 60, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "GlorpMeeting.tga"] = {["nFrames"] = 7, ["frameWidth"] = 77, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 256, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "DOCING.tga"] = {["nFrames"] = 101, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "DITTO.tga"] = {["nFrames"] = 4, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 128, ["framerate"] = 9}
+TwitchEmotes_animation_metadata[basePath .. "Shrug.tga"] = {["nFrames"] = 1, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 32, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "Gregory.tga"] = {["nFrames"] = 1, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 32, ["framerate"] = 1}
+TwitchEmotes_animation_metadata[basePath .. "docnotL.tga"] = {["nFrames"] = 60, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "docRant.tga"] = {["nFrames"] = 74, ["frameWidth"] = 48, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 4096, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "CatTime.tga"] = {["nFrames"] = 155, ["frameWidth"] = 21, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 8192, ["framerate"] = 30}
