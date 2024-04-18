@@ -176,3 +176,14 @@ TwitchEmotes_animation_metadata[basePath .. "Gregory.tga"] = {["nFrames"] = 1, [
 TwitchEmotes_animation_metadata[basePath .. "docnotL.tga"] = {["nFrames"] = 60, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 30}
 TwitchEmotes_animation_metadata[basePath .. "docRant.tga"] = {["nFrames"] = 74, ["frameWidth"] = 48, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 4096, ["framerate"] = 18}
 TwitchEmotes_animation_metadata[basePath .. "CatTime.tga"] = {["nFrames"] = 155, ["frameWidth"] = 21, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 8192, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "ASSEMBLE.tga"] = {["nFrames"] = 32, ["frameWidth"] = 93, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 1024, ["framerate"] = 16}
+TwitchEmotes_animation_metadata[basePath .. "SCATTER.tga"] = {["nFrames"] = 16, ["frameWidth"] = 93, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 512, ["framerate"] = 16}
+TwitchEmotes_animation_metadata[basePath .. "GAWKGAWK.tga"] = {["nFrames"] = 7, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 256, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "BBoomer.tga"] = {["nFrames"] = 13, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 512, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "LETSGOOOO.tga"] = {["nFrames"] = 11, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 512, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "peepoNaruSprint.tga"] = {["nFrames"] = 6, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 256, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "VANiSH.tga"] = {["nFrames"] = 38, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "GIGARICH.tga"] = {["nFrames"] = 106, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "VeryFunny.tga"] = {["nFrames"] = 121, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "MinorSpellingError.tga"] = {["nFrames"] = 166, ["frameWidth"] = 56, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 8192, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "CRAWLERS.tga"] = {["nFrames"] = 21, ["frameWidth"] = 47, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 1024, ["framerate"] = 30}
