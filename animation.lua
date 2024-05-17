@@ -204,3 +204,7 @@ TwitchEmotes_animation_metadata[basePath .. "baldYikes.tga"] = {["nFrames"] = 12
 TwitchEmotes_animation_metadata[basePath .. "Sneak.tga"] = {["nFrames"] = 14, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 512, ["framerate"] = 9}
 TwitchEmotes_animation_metadata[basePath .. "mhm.tga"] = {["nFrames"] = 9, ["frameWidth"] = 37, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 512, ["framerate"] = 4}
 TwitchEmotes_animation_metadata[basePath .. "NUKE.tga"] = {["nFrames"] = 31, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 1024, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "NOIDONTTHINKSO.tga"] = {["nFrames"] = 124, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "catPunchU.tga"] = {["nFrames"] = 102, ["frameWidth"] = 34, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 4096, ["framerate"] = 24}
+TwitchEmotes_animation_metadata[basePath .. "catCheck.tga"] = {["nFrames"] = 68, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "BANERS.tga"] = {["nFrames"] = 2, ["frameWidth"] = 33, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 64, ["framerate"] = 12}

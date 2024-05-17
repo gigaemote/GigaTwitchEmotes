@@ -370,4 +370,12 @@ judhead_emotes = {
     ["baseg"] = basePath .. "baseg.tga:28:28",
     ["PepeNPC"] = basePath .. "PepeNPC.tga:28:28",
     ["NUKE"] = basePath .. "NUKE.tga:56:28",
+    ["NOIDONTTHINKSO"] = basePath .. "NOIDONTTHINKSO.tga:56:28",
+    ["ExtremelyMad"] = basePath .. "ExtremelyMad.tga:28:28",
+    ["HEHE"] = basePath .. "HEHE.tga:28:28",
+    ["catPunchU"] = basePath .. "catPunchU.tga:56:28",
+    ["catCheck"] = basePath .. "catCheck.tga:56:28",
+    ["glarrrp"] = basePath .. "glarrrp.tga:28:28",
+    ["glerp"] = basePath .. "glerp.tga:28:28",
+    ["BANERS"] = basePath .. "BANERS.tga:56:28",
 }
