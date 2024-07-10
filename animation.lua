@@ -208,3 +208,10 @@ TwitchEmotes_animation_metadata[basePath .. "NOIDONTTHINKSO.tga"] = {["nFrames"]
 TwitchEmotes_animation_metadata[basePath .. "catPunchU.tga"] = {["nFrames"] = 102, ["frameWidth"] = 34, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 4096, ["framerate"] = 24}
 TwitchEmotes_animation_metadata[basePath .. "catCheck.tga"] = {["nFrames"] = 68, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 30}
 TwitchEmotes_animation_metadata[basePath .. "BANERS.tga"] = {["nFrames"] = 2, ["frameWidth"] = 33, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 64, ["framerate"] = 12}
+TwitchEmotes_animation_metadata[basePath .. "GlorpSpin.tga"] = {["nFrames"] = 10, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 512, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "floppy.tga"] = {["nFrames"] = 10, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 512, ["framerate"] = 9}
+TwitchEmotes_animation_metadata[basePath .. "autismGathering.tga"] = {["nFrames"] = 16, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 512, ["framerate"] = 12}
+TwitchEmotes_animation_metadata[basePath .. "HuggingInEarthquake.tga"] = {["nFrames"] = 4, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 128, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "OOOOO.tga"] = {["nFrames"] = 90, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "floppygang.tga"] = {["nFrames"] = 10, ["frameWidth"] = 96, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 512, ["framerate"] = 9}
+TwitchEmotes_animation_metadata[basePath .. "GlueTime.tga"] = {["nFrames"] = 13, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 512, ["framerate"] = 9}
