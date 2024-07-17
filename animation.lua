@@ -215,3 +215,10 @@ TwitchEmotes_animation_metadata[basePath .. "HuggingInEarthquake.tga"] = {["nFra
 TwitchEmotes_animation_metadata[basePath .. "OOOOO.tga"] = {["nFrames"] = 90, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 18}
 TwitchEmotes_animation_metadata[basePath .. "floppygang.tga"] = {["nFrames"] = 10, ["frameWidth"] = 96, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 512, ["framerate"] = 9}
 TwitchEmotes_animation_metadata[basePath .. "GlueTime.tga"] = {["nFrames"] = 13, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 512, ["framerate"] = 9}
+TwitchEmotes_animation_metadata[basePath .. "AGGREND.tga"] = {["nFrames"] = 30, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 1024, ["framerate"] = 14}
+TwitchEmotes_animation_metadata[basePath .. "Sigma.tga"] = {["nFrames"] = 41, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "sigmaArrive.tga"] = {["nFrames"] = 53, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 12}
+TwitchEmotes_animation_metadata[basePath .. "GoodTake.tga"] = {["nFrames"] = 25, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 1024, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "RODL.tga"] = {["nFrames"] = 3, ["frameWidth"] = 39, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 128, ["framerate"] = 2}
+TwitchEmotes_animation_metadata[basePath .. "aaAAAAAaaaaaaaAAAAAaaaaaaaAAAAAa.tga"] = {["nFrames"] = 3, ["frameWidth"] = 37, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 128, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "Salami.tga"] = {["nFrames"] = 4, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 128, ["framerate"] = 18}
