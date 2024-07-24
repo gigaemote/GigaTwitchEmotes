@@ -222,3 +222,7 @@ TwitchEmotes_animation_metadata[basePath .. "GoodTake.tga"] = {["nFrames"] = 25,
 TwitchEmotes_animation_metadata[basePath .. "RODL.tga"] = {["nFrames"] = 3, ["frameWidth"] = 39, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 128, ["framerate"] = 2}
 TwitchEmotes_animation_metadata[basePath .. "aaAAAAAaaaaaaaAAAAAaaaaaaaAAAAAa.tga"] = {["nFrames"] = 3, ["frameWidth"] = 37, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 128, ["framerate"] = 18}
 TwitchEmotes_animation_metadata[basePath .. "Salami.tga"] = {["nFrames"] = 4, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 128, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "IVEGONEPASTHEPOINTOFINSANITY.tga"] = {["nFrames"] = 64, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "AshTwerk.tga"] = {["nFrames"] = 23, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 1024, ["framerate"] = 9}
+TwitchEmotes_animation_metadata[basePath .. "LTGNOW.tga"] = {["nFrames"] = 90, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "SpringlesLong.tga"] = {["nFrames"] = 6, ["frameWidth"] = 74, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 256, ["framerate"] = 6}
