@@ -1,5 +1,5 @@
 ## Interface: 100205
-## Version: 1.6.17
+## Version: 1.7.0
 ## Title: Giga Twitch Emotes
 ## Dependencies: TwitchEmotes
 emotes.lua
