@@ -227,3 +227,4 @@ TwitchEmotes_animation_metadata[basePath .. "spidermanAssAssClap.tga"] = {["nFra
 TwitchEmotes_animation_metadata[basePath .. "HUHBibi.tga"] = {["nFrames"] = 1, ["frameWidth"] = 30, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 32, ["framerate"] = 0}
 TwitchEmotes_animation_metadata[basePath .. "LETHIMPOOP.tga"] = {["nFrames"] = 10, ["frameWidth"] = 41, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 512, ["framerate"] = 0}
 
+TwitchEmotes_animation_metadata[basePath .. "glorpDrive.tga"] = {["nFrames"] = 51, ["frameWidth"] = 73, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 2048, ["framerate"] = 18}

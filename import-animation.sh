@@ -32,7 +32,7 @@ if [ $# -ge 4 ] ; then
     magick ${frames[@]} -resize "32x32" -append "$image_appended"
 else
     # TODO: Resize frames
-    magick import/dump_* -resize "64x32" -append "$image_appended"
+    magick import/dump_* -resize "32x32" -append "$image_appended"
 fi
 
 orig_h=$(magick identify -ping -format '%h' "$image_appended")
