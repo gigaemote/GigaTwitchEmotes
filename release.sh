@@ -29,7 +29,7 @@ git merge-base --is-ancestor HEAD @{u} || {
 ./build.sh "$stage"
 
 git tag -f -a "$version" -m "$version"
-git push origin --tags "$version"
+git push origin --tags "$version" --force
 
 gh release create \
     "$version" \
