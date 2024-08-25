@@ -228,3 +228,8 @@ TwitchEmotes_animation_metadata[basePath .. "HUHBibi.tga"] = {["nFrames"] = 1, [
 TwitchEmotes_animation_metadata[basePath .. "LETHIMPOOP.tga"] = {["nFrames"] = 10, ["frameWidth"] = 41, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 512, ["framerate"] = 0}
 
 TwitchEmotes_animation_metadata[basePath .. "glorpDrive.tga"] = {["nFrames"] = 51, ["frameWidth"] = 73, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 2048, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "NuggetDance.tga"] = {["nFrames"] = 240, ["frameWidth"] = 42, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 8192, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "GIGAGEDIGEDAGEDAGO.tga"] = {["nFrames"] = 199, ["frameWidth"] = 48, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 8192, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "SoulShroom.tga"] = {["nFrames"] = 13, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 512, ["framerate"] = 12}
+TwitchEmotes_animation_metadata[basePath .. "ricardoFlick.tga"] = {["nFrames"] = 128, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "SHITTERS.tga"] = {["nFrames"] = 123, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 30}
