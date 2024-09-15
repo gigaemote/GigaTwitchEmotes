@@ -236,3 +236,7 @@ TwitchEmotes_animation_metadata[basePath .. "SHITTERS.tga"] = {["nFrames"] = 123
 TwitchEmotes_animation_metadata[basePath .. "DEVIOUS.tga"] = {["nFrames"] = 21, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 1024, ["framerate"] = 30}
 TwitchEmotes_animation_metadata[basePath .. "tuh.tga"] = {["nFrames"] = 192, ["frameWidth"] = 35, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 8192, ["framerate"] = 18}
 TwitchEmotes_animation_metadata[basePath .. "Smoeg.tga"] = {["nFrames"] = 8, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 256, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "PoroDisco.tga"] = {["nFrames"] = 26, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 1024, ["framerate"] = 14}
+TwitchEmotes_animation_metadata[basePath .. "VINDICTA.tga"] = {["nFrames"] = 3, ["frameWidth"] = 51, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 128, ["framerate"] = 12}
+TwitchEmotes_animation_metadata[basePath .. "WideAmongUsGaySex.tga"] = {["nFrames"] = 7, ["frameWidth"] = 88, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 256, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "jorkin.tga"] = {["nFrames"] = 5, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 256, ["framerate"] = 30}
