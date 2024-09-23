@@ -240,3 +240,13 @@ TwitchEmotes_animation_metadata[basePath .. "PoroDisco.tga"] = {["nFrames"] = 26
 TwitchEmotes_animation_metadata[basePath .. "VINDICTA.tga"] = {["nFrames"] = 3, ["frameWidth"] = 51, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 128, ["framerate"] = 12}
 TwitchEmotes_animation_metadata[basePath .. "WideAmongUsGaySex.tga"] = {["nFrames"] = 7, ["frameWidth"] = 88, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 256, ["framerate"] = 30}
 TwitchEmotes_animation_metadata[basePath .. "jorkin.tga"] = {["nFrames"] = 5, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 256, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "Listening.tga"] = {["nFrames"] = 162, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 8192, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "gettingSturdy.tga"] = {["nFrames"] = 126, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "GotCaughtTrolling.tga"] = {["nFrames"] = 203, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 8192, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "NotMyStreamer.tga"] = {["nFrames"] = 39, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 12}
+TwitchEmotes_animation_metadata[basePath .. "HUMPERS.tga"] = {["nFrames"] = 24, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 1024, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "billyDrinking.tga"] = {["nFrames"] = 169, ["frameWidth"] = 42, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 8192, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "fatasswizardcaststeleportation.tga"] = {["nFrames"] = 90, ["frameWidth"] = 43, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 4096, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "fatasswizardblicky.tga"] = {["nFrames"] = 75, ["frameWidth"] = 43, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 4096, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "notListening.tga"] = {["nFrames"] = 162, ["frameWidth"] = 56, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 8192, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "SayGex.tga"] = {["nFrames"] = 12, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 512, ["framerate"] = 30}
