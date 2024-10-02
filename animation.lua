@@ -250,3 +250,10 @@ TwitchEmotes_animation_metadata[basePath .. "fatasswizardcaststeleportation.tga"
 TwitchEmotes_animation_metadata[basePath .. "fatasswizardblicky.tga"] = {["nFrames"] = 75, ["frameWidth"] = 43, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 4096, ["framerate"] = 30}
 TwitchEmotes_animation_metadata[basePath .. "notListening.tga"] = {["nFrames"] = 162, ["frameWidth"] = 56, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 8192, ["framerate"] = 30}
 TwitchEmotes_animation_metadata[basePath .. "SayGex.tga"] = {["nFrames"] = 12, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 512, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "fatasswizardgoestobed.tga"] = {["nFrames"] = 59, ["frameWidth"] = 31, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "fatasswizardblicky2.tga"] = {["nFrames"] = 38, ["frameWidth"] = 40, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 2048, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "fatasswizardsummonsacow.tga"] = {["nFrames"] = 60, ["frameWidth"] = 34, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 2048, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "fatasswizardpowersup.tga"] = {["nFrames"] = 38, ["frameWidth"] = 40, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 2048, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "fatasswizardfliesaway.tga"] = {["nFrames"] = 60, ["frameWidth"] = 40, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 2048, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "fatasswizardcastsblizzard.tga"] = {["nFrames"] = 90, ["frameWidth"] = 43, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 4096, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "fatasswizardcastsbanishment.tga"] = {["nFrames"] = 69, ["frameWidth"] = 96, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 4096, ["framerate"] = 30}
