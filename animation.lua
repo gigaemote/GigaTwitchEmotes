@@ -257,3 +257,8 @@ TwitchEmotes_animation_metadata[basePath .. "fatasswizardpowersup.tga"] = {["nFr
 TwitchEmotes_animation_metadata[basePath .. "fatasswizardfliesaway.tga"] = {["nFrames"] = 60, ["frameWidth"] = 40, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 2048, ["framerate"] = 18}
 TwitchEmotes_animation_metadata[basePath .. "fatasswizardcastsblizzard.tga"] = {["nFrames"] = 90, ["frameWidth"] = 43, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 4096, ["framerate"] = 18}
 TwitchEmotes_animation_metadata[basePath .. "fatasswizardcastsbanishment.tga"] = {["nFrames"] = 69, ["frameWidth"] = 96, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 4096, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "zazaglorp.tga"] = {["nFrames"] = 90, ["frameWidth"] = 96, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 4096, ["framerate"] = 9}
+TwitchEmotes_animation_metadata[basePath .. "cokeglorp.tga"] = {["nFrames"] = 99, ["frameWidth"] = 96, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 4096, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "aimbert.tga"] = {["nFrames"] = 25, ["frameWidth"] = 96, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 1024, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "zazabert.tga"] = {["nFrames"] = 90, ["frameWidth"] = 96, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 4096, ["framerate"] = 9}
+TwitchEmotes_animation_metadata[basePath .. "cokebert.tga"] = {["nFrames"] = 99, ["frameWidth"] = 96, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 4096, ["framerate"] = 18}

@@ -485,4 +485,10 @@ judhead_emotes = {
     ["fatasswizardcastsblizzard"] = basePath .. "fatasswizardcastsblizzard.tga:56:28",
     ["moon2NTR"] = basePath .. "moon2NTR.tga:28:28",
     ["fatasswizardcastsbanishment"] = basePath .. "fatasswizardcastsbanishment.tga:56:96",
+    ["zazaglorp"] = basePath .. "zazaglorp.tga:56:28",
+    ["cokeglorp"] = basePath .. "cokeglorp.tga:56:28",
+    ["aimbert"] = basePath .. "aimbert.tga:56:28",
+    ["zazabert"] = basePath .. "zazabert.tga:56:28",
+    ["galaxygasbert"] = basePath .. "galaxygasbert.tga:28:96",
+    ["cokebert"] = basePath .. "cokebert.tga:56:28",
 }
