@@ -262,3 +262,7 @@ TwitchEmotes_animation_metadata[basePath .. "cokeglorp.tga"] = {["nFrames"] = 99
 TwitchEmotes_animation_metadata[basePath .. "aimbert.tga"] = {["nFrames"] = 25, ["frameWidth"] = 96, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 1024, ["framerate"] = 18}
 TwitchEmotes_animation_metadata[basePath .. "zazabert.tga"] = {["nFrames"] = 90, ["frameWidth"] = 96, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 4096, ["framerate"] = 9}
 TwitchEmotes_animation_metadata[basePath .. "cokebert.tga"] = {["nFrames"] = 99, ["frameWidth"] = 96, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 4096, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "stickBugged.tga"] = {["nFrames"] = 19, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 1024, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "AAUGH.tga"] = {["nFrames"] = 100, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "sabrinaPls.tga"] = {["nFrames"] = 129, ["frameWidth"] = 36, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 8192, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "glorpFeet.tga"] = {["nFrames"] = 54, ["frameWidth"] = 54, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 2048, ["framerate"] = 30}
