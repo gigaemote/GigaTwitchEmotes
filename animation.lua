@@ -266,3 +266,6 @@ TwitchEmotes_animation_metadata[basePath .. "stickBugged.tga"] = {["nFrames"] = 
 TwitchEmotes_animation_metadata[basePath .. "AAUGH.tga"] = {["nFrames"] = 100, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 30}
 TwitchEmotes_animation_metadata[basePath .. "sabrinaPls.tga"] = {["nFrames"] = 129, ["frameWidth"] = 36, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 8192, ["framerate"] = 30}
 TwitchEmotes_animation_metadata[basePath .. "glorpFeet.tga"] = {["nFrames"] = 54, ["frameWidth"] = 54, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 2048, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "garekSUSSY.tga"] = {["nFrames"] = 245, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 8192, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "Loser.tga"] = {["nFrames"] = 8, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 256, ["framerate"] = 12}
+TwitchEmotes_animation_metadata[basePath .. "xddtime.tga"] = {["nFrames"] = 153, ["frameWidth"] = 95, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 8192, ["framerate"] = 30}

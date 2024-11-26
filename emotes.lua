@@ -501,4 +501,13 @@ judhead_emotes = {
     ["sabrinaPls"] = basePath .. "sabrinaPls.tga:56:28",
     ["glorpFeet"] = basePath .. "glorpFeet.tga:56:28",
     ["incelvibes"] = basePath .. "incelvibes.tga:28:36",
+    ["garekYAY"] = basePath .. "garekYAY.tga:28:28",
+    ["garekSUSSY"] = basePath .. "garekSUSSY.tga:56:28",
+    ["garekPREGONIC"] = basePath .. "garekPREGONIC.tga:28:28",
+    ["garekTHIS"] = basePath .. "garekTHIS.tga:28:28",
+    ["Loser"] = basePath .. "Loser.tga:56:28",
+    ["ChillGuy"] = basePath .. "ChillGuy.tga:28:28",
+    ["trollS"] = basePath .. "trollS.tga:28:28",
+    ["BAKA"] = basePath .. "BAKA.tga:28:28",
+    ["xddtime"] = basePath .. "xddtime.tga:56:28",
 }
