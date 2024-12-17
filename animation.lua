@@ -269,3 +269,7 @@ TwitchEmotes_animation_metadata[basePath .. "glorpFeet.tga"] = {["nFrames"] = 54
 TwitchEmotes_animation_metadata[basePath .. "garekSUSSY.tga"] = {["nFrames"] = 245, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 8192, ["framerate"] = 30}
 TwitchEmotes_animation_metadata[basePath .. "Loser.tga"] = {["nFrames"] = 8, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 256, ["framerate"] = 12}
 TwitchEmotes_animation_metadata[basePath .. "xddtime.tga"] = {["nFrames"] = 153, ["frameWidth"] = 95, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 8192, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "DRAMA.tga"] = {["nFrames"] = 64, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "deathNOTED.tga"] = {["nFrames"] = 142, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 8192, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "StaffOfJorkin.tga"] = {["nFrames"] = 4, ["frameWidth"] = 128, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 128, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "glorpass.tga"] = {["nFrames"] = 58, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 30}
