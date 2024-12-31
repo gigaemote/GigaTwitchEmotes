@@ -289,3 +289,13 @@ TwitchEmotes_animation_metadata[basePath .. "BOOBAMASHT.tga"] = {["nFrames"] = 2
 TwitchEmotes_animation_metadata[basePath .. "ryzaDance.tga"] = {["nFrames"] = 51, ["frameWidth"] = 54, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 2048, ["framerate"] = 18}
 TwitchEmotes_animation_metadata[basePath .. "ABALDA.tga"] = {["nFrames"] = 6, ["frameWidth"] = 69, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 256, ["framerate"] = 12}
 TwitchEmotes_animation_metadata[basePath .. "cumbyMeeting.tga"] = {["nFrames"] = 10, ["frameWidth"] = 77, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 512, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "MonaPls.tga"] = {["nFrames"] = 24, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 1024, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "monaSway.tga"] = {["nFrames"] = 28, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 1024, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "burniceTwerk.tga"] = {["nFrames"] = 128, ["frameWidth"] = 30, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "SODAING.tga"] = {["nFrames"] = 94, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "Bippin.tga"] = {["nFrames"] = 139, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 8192, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "trr.tga"] = {["nFrames"] = 2, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 64, ["framerate"] = 12}
+TwitchEmotes_animation_metadata[basePath .. "MajimaMelon.tga"] = {["nFrames"] = 80, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "GachiBlacksmith.tga"] = {["nFrames"] = 177, ["frameWidth"] = 57, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 8192, ["framerate"] = 14}
+TwitchEmotes_animation_metadata[basePath .. "nebZamn.tga"] = {["nFrames"] = 62, ["frameWidth"] = 57, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 2048, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "60.tga"] = {["nFrames"] = 290, ["frameWidth"] = 57, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 9280, ["framerate"] = 30}
