@@ -325,3 +325,13 @@ TwitchEmotes_animation_metadata[basePath .. "where.tga"] = {["nFrames"] = 68, ["
 TwitchEmotes_animation_metadata[basePath .. "plink-182.tga"] = {["nFrames"] = 60, ["frameWidth"] = 80, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 2048, ["framerate"] = 30}
 TwitchEmotes_animation_metadata[basePath .. "badvibes.tga"] = {["nFrames"] = 90, ["frameWidth"] = 96, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 4096, ["framerate"] = 18}
 TwitchEmotes_animation_metadata[basePath .. "buhFlipExplode.tga"] = {["nFrames"] = 61, ["frameWidth"] = 96, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 2048, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "momoi.tga"] = {["nFrames"] = 7, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 256, ["framerate"] = 9}
+TwitchEmotes_animation_metadata[basePath .. "ComeHereBoy.tga"] = {["nFrames"] = 35, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "gachiTip.tga"] = {["nFrames"] = 64, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "GIRLBOSSING.tga"] = {["nFrames"] = 229, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 8192, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "lysidab.tga"] = {["nFrames"] = 4, ["frameWidth"] = 64, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 128, ["framerate"] = 4}
+TwitchEmotes_animation_metadata[basePath .. "YGORivalLoss.tga"] = {["nFrames"] = 3, ["frameWidth"] = 64, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 128, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "gachiWink.tga"] = {["nFrames"] = 81, ["frameWidth"] = 64, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 4096, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "Oppai.tga"] = {["nFrames"] = 11, ["frameWidth"] = 64, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 512, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "Potassium.tga"] = {["nFrames"] = 24, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 1024, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "vtuberenjoyer.tga"] = {["nFrames"] = 15, ["frameWidth"] = 64, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 512, ["framerate"] = 30}
