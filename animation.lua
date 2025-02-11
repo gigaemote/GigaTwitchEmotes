@@ -355,3 +355,14 @@ TwitchEmotes_animation_metadata[basePath .. "ROACH.tga"] = {["nFrames"] = 46, ["
 TwitchEmotes_animation_metadata[basePath .. "gachiFight.tga"] = {["nFrames"] = 78, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 18}
 TwitchEmotes_animation_metadata[basePath .. "VANNING.tga"] = {["nFrames"] = 57, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 18}
 TwitchEmotes_animation_metadata[basePath .. "ROACHEST.tga"] = {["nFrames"] = 46, ["frameWidth"] = 33, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 2048, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "catdown.tga"] = {["nFrames"] = 20, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 1024, ["framerate"] = 14}
+TwitchEmotes_animation_metadata[basePath .. "VBLONGNECK.tga"] = {["nFrames"] = 300, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 9600, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "HeisenBallin.tga"] = {["nFrames"] = 115, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "glorpin.tga"] = {["nFrames"] = 5, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 256, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "glorpBlicky.tga"] = {["nFrames"] = 57, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "gloopijej.tga"] = {["nFrames"] = 15, ["frameWidth"] = 29, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 512, ["framerate"] = 14}
+TwitchEmotes_animation_metadata[basePath .. "youvebeenglorped.tga"] = {["nFrames"] = 48, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 14}
+TwitchEmotes_animation_metadata[basePath .. "Legendary.tga"] = {["nFrames"] = 101, ["frameWidth"] = 55, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 4096, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "beachtime.tga"] = {["nFrames"] = 39, ["frameWidth"] = 57, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 2048, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "buffsticking.tga"] = {["nFrames"] = 2, ["frameWidth"] = 95, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 64, ["framerate"] = 12}
+TwitchEmotes_animation_metadata[basePath .. "glorpaSpin.tga"] = {["nFrames"] = 10, ["frameWidth"] = 43, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 512, ["framerate"] = 24}
