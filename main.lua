@@ -24,9 +24,14 @@ local aboutText = (
 )
 local tabs = {}
 local tabNames = {"Emotes", "About"}
+local panelType = "CharacterFrameTabButtonTemplate"
+
+if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
+    panelType = "PanelTabButtonTemplate"
+end
 
 for i, name in ipairs(tabNames) do
-    local tab = CreateFrame("Button", "$parentTab"..i, MyAddonFrame, "CharacterFrameTabButtonTemplate")
+    local tab = CreateFrame("Button", "$parentTab"..i, MyAddonFrame, panelType)
     tab:SetID(i)
     tab:SetText(name)
     tab:SetScript("OnClick", function(self)

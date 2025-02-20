@@ -366,3 +366,11 @@ TwitchEmotes_animation_metadata[basePath .. "Legendary.tga"] = {["nFrames"] = 10
 TwitchEmotes_animation_metadata[basePath .. "beachtime.tga"] = {["nFrames"] = 39, ["frameWidth"] = 57, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 2048, ["framerate"] = 18}
 TwitchEmotes_animation_metadata[basePath .. "buffsticking.tga"] = {["nFrames"] = 2, ["frameWidth"] = 95, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 64, ["framerate"] = 12}
 TwitchEmotes_animation_metadata[basePath .. "glorpaSpin.tga"] = {["nFrames"] = 10, ["frameWidth"] = 43, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 512, ["framerate"] = 24}
+TwitchEmotes_animation_metadata[basePath .. "dmDance.tga"] = {["nFrames"] = 170, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 8192, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "peepoScarab.tga"] = {["nFrames"] = 34, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "PETTHETAUREN.tga"] = {["nFrames"] = 5, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 256, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "eepy.tga"] = {["nFrames"] = 119, ["frameWidth"] = 35, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 4096, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "ggez.tga"] = {["nFrames"] = 240, ["frameWidth"] = 57, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 8192, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "peepoVanish.tga"] = {["nFrames"] = 47, ["frameWidth"] = 59, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 2048, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "smallestViolin.tga"] = {["nFrames"] = 6, ["frameWidth"] = 41, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 256, ["framerate"] = 14}
+TwitchEmotes_animation_metadata[basePath .. "Stirring.tga"] = {["nFrames"] = 12, ["frameWidth"] = 35, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 512, ["framerate"] = 12}
