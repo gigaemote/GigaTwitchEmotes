@@ -374,3 +374,11 @@ TwitchEmotes_animation_metadata[basePath .. "ggez.tga"] = {["nFrames"] = 240, ["
 TwitchEmotes_animation_metadata[basePath .. "peepoVanish.tga"] = {["nFrames"] = 47, ["frameWidth"] = 59, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 2048, ["framerate"] = 18}
 TwitchEmotes_animation_metadata[basePath .. "smallestViolin.tga"] = {["nFrames"] = 6, ["frameWidth"] = 41, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 256, ["framerate"] = 14}
 TwitchEmotes_animation_metadata[basePath .. "Stirring.tga"] = {["nFrames"] = 12, ["frameWidth"] = 35, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 512, ["framerate"] = 12}
+TwitchEmotes_animation_metadata[basePath .. "bonging.tga"] = {["nFrames"] = 43, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "ppPoof.tga"] = {["nFrames"] = 41, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "Fadedthanaglorp.tga"] = {["nFrames"] = 84, ["frameWidth"] = 44, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 4096, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "zapped.tga"] = {["nFrames"] = 64, ["frameWidth"] = 35, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 2048, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "rivals.tga"] = {["nFrames"] = 56, ["frameWidth"] = 64, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 2048, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "reallyDevious.tga"] = {["nFrames"] = 89, ["frameWidth"] = 64, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 4096, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "HopOnOverwatch2.tga"] = {["nFrames"] = 115, ["frameWidth"] = 71, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 4096, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "Glerm.tga"] = {["nFrames"] = 128, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 18}
