@@ -1,5 +1,5 @@
 ## Interface: 100205
-## Version: 2.0.4
+## Version: 2.0.5
 ## Title: Giga Twitch Emotes
 ## SavedVariables: Giga_Settings
 ## Dependencies: TwitchEmotes
