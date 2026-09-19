@@ -190,16 +190,7 @@ function judhead_startup()
             emotePath = emotePath:gsub(":28:28$", ":20:20")
         end
 
-        -- Temporary debugging
-        if k == "PEPW" then
-            print("[GIGA] Before AddEmote:", emotePath)
-        end
-
         TwitchEmotes:AddEmote(k, k, emotePath);
-
-        if k == "PEPW" then
-            print("[GIGA] After AddEmote:", TwitchEmotes_defaultpack[k])
-        end
 
         suggestions[i] = k;
         i = i + 1;
