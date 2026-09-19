@@ -179,12 +179,27 @@ pageNumber:SetPoint("BOTTOM", tabContents[1], "BOTTOM", 0, 10)
 function judhead_startup()
     local suggestions = {};
     local i = 1;
+
     -- Setup minimap icon
     InitMinimapIcon();
 
     for k, v in pairs(judhead_emotes) do
-        -- Check emote is enabled ?
-        TwitchEmotes:AddEmote(k, k, v);
+        local emotePath = v
+
+        if isWoWForever then
+            emotePath = emotePath:gsub(":28:28$", ":20:20")
+        end
+
+        -- Temporary debugging
+        if k == "PEPW" then
+            print("[GIGA] Before AddEmote:", emotePath)
+        end
+
+        TwitchEmotes:AddEmote(k, k, emotePath);
+
+        if k == "PEPW" then
+            print("[GIGA] After AddEmote:", TwitchEmotes_defaultpack[k])
+        end
 
         suggestions[i] = k;
         i = i + 1;
@@ -193,6 +208,7 @@ function judhead_startup()
     GigaTwitchEmotesRenderFrame(judhead_emotes);
     judhead_initsuggestions(suggestions);
 end
+
 
 function GigaTwitchEmotesRenderFrame(emotes)
     -- Sort emotes
@@ -415,20 +431,43 @@ function TwitchEmotesAnimator_UpdateEmoteInFontString(fontstring, widthOverride,
                 local framenum = TwitchEmotes_GetCurrentFrameNum(animdata);
                 local nTxt;
 		-- it is not an emote suggestion and it is a wide animated emote
+		-- preserve the frame's aspect ratio while using TwitchEmotes' requested height.
 		if (widthOverride ~= 16 and animdata.frameWidth > 32) then
-                    nTxt = txt:gsub(escpattern(emoteTextureString),
-                                        TwitchEmotes_BuildEmoteFrameStringWithDimensions(
-                                        imagepath, animdata, framenum, animdata.frameHeight, animdata.frameWidth))
-		elseif (widthOverride ~= nil or heightOverride ~= nil) then
-                    nTxt = txt:gsub(escpattern(emoteTextureString),
-                                        TwitchEmotes_BuildEmoteFrameStringWithDimensions(
-                                        imagepath, animdata, framenum, widthOverride, heightOverride))
-                else
-                    nTxt = txt:gsub(escpattern(emoteTextureString),
-                                      TwitchEmotes_BuildEmoteFrameString(
-                                        imagepath, animdata, framenum))
-                end
+		    local aspectRatio = animdata.frameWidth / animdata.frameHeight
+		    local displayHeight = heightOverride
+		    local displayWidth = math.floor(displayHeight * aspectRatio + 0.5)
 
+		    nTxt = txt:gsub(
+			escpattern(emoteTextureString),
+			TwitchEmotes_BuildEmoteFrameStringWithDimensions(
+			    imagepath,
+			    animdata,
+			    framenum,
+			    displayWidth,
+			    displayHeight
+			)
+		    )
+		elseif (widthOverride ~= nil or heightOverride ~= nil) then
+		    nTxt = txt:gsub(
+			escpattern(emoteTextureString),
+			TwitchEmotes_BuildEmoteFrameStringWithDimensions(
+			    imagepath,
+			    animdata,
+			    framenum,
+			    widthOverride,
+			    heightOverride
+			)
+		    )
+		else
+		    nTxt = txt:gsub(
+			escpattern(emoteTextureString),
+			TwitchEmotes_BuildEmoteFrameString(
+			    imagepath,
+			    animdata,
+			    framenum
+			)
+		    )
+		end
                 -- If we're updating a chat message we need to alter the messageInfo as wel
                 if (fontstring.messageInfo ~= nil) then
                     fontstring.messageInfo.message = nTxt
@@ -439,3 +478,5 @@ function TwitchEmotesAnimator_UpdateEmoteInFontString(fontstring, widthOverride,
         end
     end
 end
+
+
