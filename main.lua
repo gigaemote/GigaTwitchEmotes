@@ -413,7 +413,6 @@ function TwitchEmotesAnimator_UpdateEmoteInFontString(fontstring, widthOverride,
 
     -- Debug: confirm that the animator is actually called.
     -- Remove after testing.
-    print("Giga animator called", tostring(widthOverride), tostring(heightOverride))
 
     if txt == nil then
         return
