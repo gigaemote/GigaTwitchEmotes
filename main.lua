@@ -407,63 +407,74 @@ local function escpattern(x)
              :gsub('%?', '%%?'))
 end
 
+
 function TwitchEmotesAnimator_UpdateEmoteInFontString(fontstring, widthOverride, heightOverride)
-    local txt = fontstring:GetText();
-    if (txt ~= nil) then
-        for emoteTextureString in txt:gmatch("(|TInterface\\AddOns\\TwitchEmotes.-|t)") do
-            local imagepath = emoteTextureString:match("|T(Interface\\AddOns\\TwitchEmotes.-tga).-|t")
+    local txt = fontstring:GetText()
 
-            local animdata = TwitchEmotes_animation_metadata[imagepath];
-            if (animdata ~= nil) then
-                local framenum = TwitchEmotes_GetCurrentFrameNum(animdata);
-                local nTxt;
-		-- it is not an emote suggestion and it is a wide animated emote
-		-- preserve the frame's aspect ratio while using TwitchEmotes' requested height.
-		if (widthOverride ~= 16 and animdata.frameWidth > 32) then
-		    local aspectRatio = animdata.frameWidth / animdata.frameHeight
-		    local displayHeight = heightOverride
-		    local displayWidth = math.floor(displayHeight * aspectRatio + 0.5)
+    -- Debug: confirm that the animator is actually called.
+    -- Remove after testing.
+    print("Giga animator called", tostring(widthOverride), tostring(heightOverride))
 
-		    nTxt = txt:gsub(
-			escpattern(emoteTextureString),
-			TwitchEmotes_BuildEmoteFrameStringWithDimensions(
-			    imagepath,
-			    animdata,
-			    framenum,
-			    displayWidth,
-			    displayHeight
-			)
-		    )
-		elseif (widthOverride ~= nil or heightOverride ~= nil) then
-		    nTxt = txt:gsub(
-			escpattern(emoteTextureString),
-			TwitchEmotes_BuildEmoteFrameStringWithDimensions(
-			    imagepath,
-			    animdata,
-			    framenum,
-			    widthOverride,
-			    heightOverride
-			)
-		    )
-		else
-		    nTxt = txt:gsub(
-			escpattern(emoteTextureString),
-			TwitchEmotes_BuildEmoteFrameString(
-			    imagepath,
-			    animdata,
-			    framenum
-			)
-		    )
-		end
-                -- If we're updating a chat message we need to alter the messageInfo as wel
-                if (fontstring.messageInfo ~= nil) then
-                    fontstring.messageInfo.message = nTxt
-                end
-                fontstring:SetText(nTxt);
-                txt = nTxt;
+    if txt == nil then
+        return
+    end
+
+    for emoteTextureString in txt:gmatch("(|TInterface\\AddOns\\TwitchEmotes.-|t)") do
+        local imagepath = emoteTextureString:match(
+            "|T(Interface\\AddOns\\TwitchEmotes.-tga).-|t"
+        )
+
+        local animdata = imagepath and TwitchEmotes_animation_metadata[imagepath]
+
+        if animdata ~= nil then
+            local framenum = TwitchEmotes_GetCurrentFrameNum(animdata)
+            local frameString
+
+            if animdata.frameWidth > animdata.frameHeight then
+                -- Wide animated emotes: preserve their aspect ratio.
+                local displayHeight =
+                    (heightOverride and heightOverride > 0)
+                    and heightOverride
+                    or 28
+
+                local displayWidth = math.floor(
+                    displayHeight * animdata.frameWidth / animdata.frameHeight + 0.5
+                )
+
+                frameString = TwitchEmotes_BuildEmoteFrameStringWithDimensions(
+                    imagepath,
+                    animdata,
+                    framenum,
+                    displayHeight,
+                    displayWidth
+                )
+            elseif widthOverride ~= nil and heightOverride ~= nil then
+                frameString = TwitchEmotes_BuildEmoteFrameStringWithDimensions(
+                    imagepath,
+                    animdata,
+                    framenum,
+                    heightOverride,
+                    widthOverride
+                )
+            else
+                frameString = TwitchEmotes_BuildEmoteFrameString(
+                    imagepath,
+                    animdata,
+                    framenum
+                )
             end
+
+            local nTxt = txt:gsub(
+                escpattern(emoteTextureString),
+                frameString
+            )
+
+            if fontstring.messageInfo ~= nil then
+                fontstring.messageInfo.message = nTxt
+            end
+
+            fontstring:SetText(nTxt)
+            txt = nTxt
         end
     end
 end
-
-
