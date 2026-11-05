@@ -12,7 +12,7 @@ case $1 in
         wow_addon_path="${WOW_ADDONS_CLASSIC_ERA:-/c/Program Files (x86)/World of Warcraft/_classic_era_/Interface/Addons}"
         ;;
     forever)
-        wow_addon_path="${WOW_ADDONS_CLASSIC_ERA:-/c/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/Addons}"
+        wow_addon_path="${WOW_ADDONS_CLASSIC_ERA:-/c/Program Files (x86)/World of Warcraft/_forever_/Interface/Addons}"
         ;;
     *)
         echo "Unknown wow version $1"
