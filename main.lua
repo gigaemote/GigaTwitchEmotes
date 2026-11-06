@@ -418,6 +418,12 @@ function TwitchEmotesAnimator_UpdateEmoteInFontString(fontstring, widthOverride,
         return
     end
 
+    -- WoW Forever may return protected chat strings during encounters.
+    -- Never attempt Lua string operations on inaccessible secret values.
+    if canaccessvalue and not canaccessvalue(txt) then
+        return
+    end
+
     for emoteTextureString in txt:gmatch("(|TInterface\\AddOns\\TwitchEmotes.-|t)") do
         local imagepath = emoteTextureString:match(
             "|T(Interface\\AddOns\\TwitchEmotes.-tga).-|t"

@@ -382,3 +382,6 @@ TwitchEmotes_animation_metadata[basePath .. "rivals.tga"] = {["nFrames"] = 56, [
 TwitchEmotes_animation_metadata[basePath .. "reallyDevious.tga"] = {["nFrames"] = 89, ["frameWidth"] = 64, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 4096, ["framerate"] = 18}
 TwitchEmotes_animation_metadata[basePath .. "HopOnOverwatch2.tga"] = {["nFrames"] = 115, ["frameWidth"] = 71, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 4096, ["framerate"] = 18}
 TwitchEmotes_animation_metadata[basePath .. "Glerm.tga"] = {["nFrames"] = 128, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 4096, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "weewoo.tga"] = {["nFrames"] = 60, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "SpeedLaugh.tga"] = {["nFrames"] = 143, ["frameWidth"] = 64, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 8192, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "scuba.tga"] = {["nFrames"] = 60, ["frameWidth"] = 32, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 2048, ["framerate"] = 18}
