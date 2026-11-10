@@ -1,5 +1,5 @@
 ## Interface: 16001
-## Version: 2.0.14
+## Version: 2.1.0
 ## Title: Giga Twitch Emotes
 ## SavedVariables: Giga_Settings
 emotes.lua
