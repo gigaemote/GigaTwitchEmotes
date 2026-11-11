@@ -568,22 +568,26 @@ do
         return false
     end
 
-    local function DiscoverCustomChatFrames()
-        local found = {}
-        local frame = EnumerateFrames()
-        while frame do
-            if not frame:GetName()
-                and frame.visibleLines
-                and not IsBlizzardChatFrame(frame)
-            then
-                found[#found + 1] = frame
-            end
+	local function DiscoverCustomChatFrames()
+	    local found = {}
+	    local frame = EnumerateFrames()
 
-            frame = EnumerateFrames(frame)
-        end
+	    while frame do
+		if not (frame.IsForbidden and frame:IsForbidden()) then
+		    if not frame:GetName()
+			and frame.visibleLines
+			and not IsBlizzardChatFrame(frame)
+		    then
+			found[#found + 1] = frame
+		    end
+		end
 
-        customFrames = found
-    end
+		frame = EnumerateFrames(frame)
+	    end
+
+	    customFrames = found
+	end
+
 
     -- Find the displayed dimensions of an emote in Chattynator.
 
@@ -591,7 +595,8 @@ do
 
     local function GetEmoteDisplaySize(emoteName)
         for _, frame in ipairs(customFrames) do
-            if frame.pool
+            if not (frame.IsForbidden and frame:IsForbidden())
+		and frame.pool
                 and frame.scrollIndex
                 and frame.visibleLines
             then
@@ -663,7 +668,7 @@ do
         end
 
         for _, frame in ipairs(customFrames) do
-            if frame:IsShown() and frame.visibleLines then
+            if not (frame.IsForbidden and frame:IsForbidden()) and frame:IsShown() and frame.visibleLines then
                 for _, line in ipairs(frame.visibleLines) do
 
                     -- Avoid skipping Chattynator lines when
