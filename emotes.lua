@@ -726,7 +726,6 @@ judhead_emotes = {
     ["SoySmirk"] = basePath .. "SoySmirk.tga:28:28",
     ["baldo"] = basePath .. "baldo.tga:28:128",
     ["bruv"] = basePath .. "bruv.tga:28:28",
-    ["waga"] = basePath .. "waga.tga:56:28",
     ["fuckyoufuckyou"] = basePath .. "fuckyoufuckyou.tga:56:28",
     ["lerolero"] = basePath .. "lerolero.tga:56:28",
     ["auh"] = basePath .. "auh.tga:56:28",
@@ -751,4 +750,5 @@ judhead_emotes = {
     ["vuh"] = basePath .. "vuh.tga:56:28",
     ["wuh"] = basePath .. "wuh.tga:56:28",
     ["yuh"] = basePath .. "yuh.tga:28:64",
+    ["waga"] = basePath .. "waga.tga:56:28",
 }
