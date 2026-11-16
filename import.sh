@@ -1,23 +1,69 @@
-#!/bin/bash
+
+#!/usr/bin/env bash
 
 set -euo pipefail
 
-image="emotes/$2.webp"
-
-size=${3:-32}
-
-if [ $# -eq 2 ]; then
-  extension_width=28
-else
-  extension_width=${size}
+if (( $# != 2 )); then
+    echo "Usage: $0 <url> <emote_name>" >&2
+    exit 1
 fi
 
-url=$(echo "$1" | sed "s/size=[[:digit:]]\+/size=$size/")
-curl "$url" -o "emotes/$2.webp"
+url=$1
+name=$2
 
+FRAME_HEIGHT=32
+DISPLAY_HEIGHT=28
 
-magick "$image" -background none -gravity center -resize "${size}x32" "$image"
-newline='["'$2'"] = basePath .. "'$2'.tga:28:'$extension_width'",'
+if [[ ! $name =~ ^[A-Za-z0-9_]+$ ]]; then
+    echo "Invalid emote name: $name" >&2
+    exit 1
+fi
 
-# Insert before the last line (before the closing bracket)
-sed -i -e '$i\'"    $newline" emotes.lua
+mkdir -p emotes
+
+source_image="emotes/${name}-source.webp"
+final_image="emotes/${name}.tga"
+
+# Download original image without modifying its dimensions.
+curl -fL "$url" -o "$source_image"
+
+# Read original dimensions.
+read -r source_w source_h < <(
+    magick identify -ping -format '%w %h' "$source_image"
+)
+
+if (( source_w == 0 || source_h == 0 )); then
+    echo "Invalid source dimensions" >&2
+    exit 1
+fi
+
+# Calculate width at 32px height.
+# Round to nearest multiple of 2.
+frame_w=$(( (source_w * FRAME_HEIGHT + source_h) / (2 * source_h) * 2 ))
+
+(( frame_w < 2 )) && frame_w=2
+
+# Resize to exact dimensions.
+magick "$source_image" \
+    -background none \
+    -resize "${frame_w}x${FRAME_HEIGHT}!" \
+    "$final_image"
+
+# Calculate display width at 28px height.
+display_w=$(( (frame_w * DISPLAY_HEIGHT + FRAME_HEIGHT / 2) / FRAME_HEIGHT ))
+
+# Register emote.
+emote_entry="    [\"${name}\"] = basePath .. \"${name}.tga:${display_w}:${DISPLAY_HEIGHT}\","
+
+sed -i "/^}/i\\${emote_entry}" emotes.lua
+
+# Remove temporary source image.
+rm "$source_image"
+
+echo
+echo "Imported: $name"
+echo "Source dimensions: ${source_w}x${source_h}"
+echo "Texture dimensions: ${frame_w}x${FRAME_HEIGHT}"
+echo "Display dimensions: ${display_w}x${DISPLAY_HEIGHT}"
+echo "Output: $final_image"
+
