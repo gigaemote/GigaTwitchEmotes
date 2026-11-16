@@ -1,4 +1,3 @@
-
 #!/usr/bin/env bash
 
 set -euo pipefail
@@ -22,17 +21,19 @@ fi
 mkdir -p emotes
 
 source_image="emotes/${name}-source.webp"
-final_image="emotes/${name}.tga"
+final_image="emotes/${name}.webp"
 
 # Download original image without modifying its dimensions.
 curl -fL "$url" -o "$source_image"
 
-# Read original dimensions.
-read -r source_w source_h < <(
-    magick identify -ping -format '%w %h' "$source_image"
-)
+# Read original dimensions without relying on newline-terminated output.
+source_w=$(magick identify -ping -format '%w' "$source_image")
+source_h=$(magick identify -ping -format '%h' "$source_image")
+source_w=${source_w//$'\r'/}
+source_h=${source_h//$'\r'/}
 
-if (( source_w == 0 || source_h == 0 )); then
+if ! [[ $source_w =~ ^[0-9]+$ && $source_h =~ ^[0-9]+$ ]] \
+    || (( source_w == 0 || source_h == 0 )); then
     echo "Invalid source dimensions" >&2
     exit 1
 fi
@@ -43,7 +44,7 @@ frame_w=$(( (source_w * FRAME_HEIGHT + source_h) / (2 * source_h) * 2 ))
 
 (( frame_w < 2 )) && frame_w=2
 
-# Resize to exact dimensions.
+# Resize to exact dimensions; build.sh converts this WebP to TGA.
 magick "$source_image" \
     -background none \
     -resize "${frame_w}x${FRAME_HEIGHT}!" \
@@ -52,7 +53,7 @@ magick "$source_image" \
 # Calculate display width at 28px height.
 display_w=$(( (frame_w * DISPLAY_HEIGHT + FRAME_HEIGHT / 2) / FRAME_HEIGHT ))
 
-# Register emote.
+# Register packaged TGA emote.
 emote_entry="    [\"${name}\"] = basePath .. \"${name}.tga:${display_w}:${DISPLAY_HEIGHT}\","
 
 sed -i "/^}/i\\${emote_entry}" emotes.lua

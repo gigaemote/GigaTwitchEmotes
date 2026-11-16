@@ -1,5 +1,189 @@
-local LDB = LibStub("LibDataBroker-1.1")
-local LDBIcon = LibStub("LibDBIcon-1.0")
+-- Errors caught by SafeCall are recorded here instead of being raised, so a
+-- restricted frame or a change in another addon never shows users a Lua
+-- error. Use /giga errors to print them.
+local caughtErrors = {}
+local caughtErrorOrder = {}
+local MAX_CAUGHT_ERRORS = 20
+
+local function RecordError(err)
+    local msg = tostring(err)
+    if caughtErrors[msg] then
+        caughtErrors[msg] = caughtErrors[msg] + 1
+        return
+    end
+
+    if #caughtErrorOrder >= MAX_CAUGHT_ERRORS then
+        return
+    end
+
+    caughtErrors[msg] = 1
+    caughtErrorOrder[#caughtErrorOrder + 1] = msg
+end
+
+local function HandleCallResult(ok, ...)
+    if not ok then
+        RecordError((...))
+        return nil
+    end
+
+    return ...
+end
+
+-- Call fn with pcall, record any error, and return fn's results (nil on error).
+local function SafeCall(fn, ...)
+    return HandleCallResult(pcall(fn, ...))
+end
+
+local LDB = LibStub and LibStub("LibDataBroker-1.1", true)
+local LDBIcon = LibStub and LibStub("LibDBIcon-1.0", true)
+
+local function EmoteTag(pack, name)
+    local path = pack and pack[name]
+    if type(path) ~= "string" then
+        return ""
+    end
+
+    return "|T" .. path .. "|t"
+end
+
+-------------------------------------------------------------------------------
+-- Emote filters: hide NSFW and/or wide emotes. A hidden emote is removed from
+-- TwitchEmotes' word -> emote lookup, so new chat messages show its name as
+-- plain text. It is also left out of autocomplete and the emote browser.
+-------------------------------------------------------------------------------
+local WIDE_EMOTE_MAX_WIDTH = 40
+local CHAT_EMOTE_HEIGHT = 28
+
+local registeredEmotes = {} -- names passed to TwitchEmotes:AddEmote
+local allSuggestions = nil -- full autocomplete list
+local activeSuggestions = nil -- list given to SetupAutoComplete, edited in place
+local ApplyEmoteFilters -- defined once the emote browser exists
+
+-- Settings shown on the native settings page (Options > AddOns) and stored
+-- in Giga_Settings.
+local SETTINGS_CATEGORY_NAME = "Giga Twitch Emotes"
+local SETTING_DEFINITIONS = {
+    {
+        key = "hideNSFW",
+        name = "Hide NSFW emotes",
+        default = false,
+        tooltip = "Show NSFW emotes as plain text in new chat messages and leave them out of autocomplete and the emote browser.",
+    },
+    {
+        key = "hideWide",
+        name = "Hide wide emotes",
+        default = false,
+        tooltip = "Show emotes wider than " .. WIDE_EMOTE_MAX_WIDTH .. "px as plain text in new chat messages and leave them out of autocomplete and the emote browser.",
+    },
+    {
+        key = "minimap",
+        name = "Show minimap icon",
+        default = true,
+        tooltip = "Show the Giga Twitch Emotes button on the minimap.",
+    },
+}
+
+-- Defined with the settings page further down.
+local RegisterSettingsPage, SetGigaSetting, OpenGigaSettings, UpdateMinimapIcon
+
+-- Width the emote takes up in chat. Matches how it is drawn: wide animated
+-- emotes are scaled to the chat height, static emotes use their tag size
+-- (texture tags are height:width).
+local function GetChatEmoteWidth(path)
+    local texture = path:match("^(.-%.tga)")
+    local metadata = TwitchEmotes_animation_metadata
+    local animdata = texture and type(metadata) == "table" and metadata[texture]
+    if type(animdata) == "table"
+        and type(animdata.frameWidth) == "number"
+        and type(animdata.frameHeight) == "number"
+        and animdata.frameHeight > 0
+    then
+        if animdata.frameWidth > animdata.frameHeight then
+            return math.floor(
+                CHAT_EMOTE_HEIGHT * animdata.frameWidth / animdata.frameHeight + 0.5
+            )
+        end
+
+        return CHAT_EMOTE_HEIGHT
+    end
+
+    local _, width = path:match("%.tga:(%d+):(%d+)")
+    return tonumber(width) or CHAT_EMOTE_HEIGHT
+end
+
+local nsfwEmoteSet = nil
+local function IsNSFWEmote(name)
+    if not nsfwEmoteSet then
+        nsfwEmoteSet = {}
+        if type(judhead_nsfw_emotes) == "table" then
+            for _, nsfwName in ipairs(judhead_nsfw_emotes) do
+                nsfwEmoteSet[nsfwName] = true
+            end
+        end
+    end
+
+    return nsfwEmoteSet[name] == true
+end
+
+local function IsEmoteHidden(name)
+    if type(Giga_Settings) ~= "table" then
+        return false
+    end
+
+    if Giga_Settings.hideNSFW and IsNSFWEmote(name) then
+        return true
+    end
+
+    local path = type(judhead_emotes) == "table" and judhead_emotes[name]
+    if Giga_Settings.hideWide
+        and type(path) == "string"
+        and GetChatEmoteWidth(path) > WIDE_EMOTE_MAX_WIDTH
+    then
+        return true
+    end
+
+    return false
+end
+
+local function GetVisibleEmotes()
+    local visible = {}
+    if type(judhead_emotes) ~= "table" then
+        return visible
+    end
+
+    for name, path in pairs(judhead_emotes) do
+        if type(path) == "string" and not IsEmoteHidden(name) then
+            visible[name] = path
+        end
+    end
+
+    return visible
+end
+
+local function ApplyChatAndSuggestionFilters()
+    -- TwitchEmotes only swaps a word for an emote if it is in this table.
+    if type(TwitchEmotes_emoticons) == "table" then
+        for name in pairs(registeredEmotes) do
+            if IsEmoteHidden(name) then
+                TwitchEmotes_emoticons[name] = nil
+            else
+                TwitchEmotes_emoticons[name] = name
+            end
+        end
+    end
+
+    if allSuggestions and activeSuggestions then
+        for i = #activeSuggestions, 1, -1 do
+            activeSuggestions[i] = nil
+        end
+
+        for _, name in ipairs(allSuggestions) do
+            if not (registeredEmotes[name] and IsEmoteHidden(name)) then
+                activeSuggestions[#activeSuggestions + 1] = name
+            end
+        end
+    end
+end
 
 -- Main frame
 local MyAddonFrame = CreateFrame("Frame", "MyAddonMainFrame", UIParent, "BasicFrameTemplateWithInset")
@@ -14,11 +198,17 @@ MyAddonFrame:RegisterForDrag("LeftButton")
 MyAddonFrame:SetScript("OnDragStart", MyAddonFrame.StartMoving)
 MyAddonFrame:SetScript("OnDragStop", MyAddonFrame.StopMovingOrSizing)
 MyAddonFrame:Hide() -- Initially hidden
+
+-- Close with Escape. Frames listed in UISpecialFrames are hidden by
+-- Blizzard's close-windows handling when Escape is pressed.
+if type(UISpecialFrames) == "table" then
+    tinsert(UISpecialFrames, MyAddonFrame:GetName())
+end
 local aboutText = (
-"六四天安門事件 AshenvaleAutonomousZone Emote Pack \n天安門大屠殺 Originally Just " .. "|T" .. judhead_emotes["PEPW"] .. "|t   " .. "\n"..
+"六四天安門事件 AshenvaleAutonomousZone Emote Pack \n天安門大屠殺 Originally Just " .. EmoteTag(judhead_emotes, "PEPW") .. "   " .. "\n"..
 "反右派鬥爭 Guildies kept contributing 大躍進政策 Grow In Numbers \n文化大革命 Many Emotes 人權 Erotic Role Play \n"..
 "民運 Bitcoin Miner \n自由 Horny 獨立 Innuendo 多黨制 Labor of Love\n\n\n"..
-"|T" .. TwitchEmotes_defaultpack["moon2CUTE"] .. "|t"
+EmoteTag(TwitchEmotes_defaultpack, "moon2CUTE")
 )
 local tabs = {}
 local tabNames = {"Emotes", "About"}
@@ -78,12 +268,19 @@ local slashFrame = CreateFrame("Frame")
 slashFrame:RegisterEvent("ADDON_LOADED")
 slashFrame:SetScript("OnEvent", function(self, event, arg1)
     if event == "ADDON_LOADED" and arg1 == "TwitchEmotes_Giga" then
-        if Giga_Settings == nil then
+        self:UnregisterEvent("ADDON_LOADED")
+        if type(Giga_Settings) ~= "table" then
             Giga_Settings = {}
-            Giga_Settings.minimap = true
         end
 
-        judhead_startup();
+        for _, def in ipairs(SETTING_DEFINITIONS) do
+            if type(Giga_Settings[def.key]) ~= type(def.default) then
+                Giga_Settings[def.key] = def.default
+            end
+        end
+
+        SafeCall(judhead_startup)
+        SafeCall(RegisterSettingsPage)
     end
 
 end)
@@ -94,20 +291,36 @@ SLASH_GIGA1 = "/giga" -- The slash command users will type in chat
 SlashCmdList["GIGA"] = function(msg)
 
     -- Check if a value was provided
+    if type(Giga_Settings) ~= "table" then
+        Giga_Settings = { minimap = true }
+    end
+
     if msg and msg ~= "" then
-        if msg == "minimap" then
-            if Giga_Settings.minimap then
-                Giga_Settings.minimap = false
-                print("|cFFFF69B4[GIGA] Minimap icon is now disabled. Please /reload.|r")
-            else
-                Giga_Settings.minimap = true
-                print("|cFFFF69B4[GIGA] Minimap icon is now enabled. Please /reload.|r")
+        if msg == "errors" then
+            if #caughtErrorOrder == 0 then
+                print("|cFFFF69B4[GIGA] No errors caught.|r")
             end
 
+            for _, err in ipairs(caughtErrorOrder) do
+                print("|cFFFF69B4[GIGA]|r " .. caughtErrors[err] .. "x " .. err)
+            end
+        elseif msg == "settings" then
+            SafeCall(OpenGigaSettings)
+        elseif msg == "nsfw" or msg == "wide" then
+            local key = (msg == "nsfw") and "hideNSFW" or "hideWide"
+            SafeCall(SetGigaSetting, key, not Giga_Settings[key])
+
+            local label = (msg == "nsfw") and "NSFW" or "Wide"
+            local state = Giga_Settings[key] and "hidden" or "shown"
+            print("|cFFFF69B4[GIGA] " .. label .. " emotes are now " .. state .. " in new messages.|r")
+        elseif msg == "minimap" then
+            SafeCall(SetGigaSetting, "minimap", not Giga_Settings.minimap)
+            local state = Giga_Settings.minimap and "enabled" or "disabled"
+            print("|cFFFF69B4[GIGA] Minimap icon is now " .. state .. ".|r")
         end
 
     else
-        print("Usage: /giga minimap to toggle minimap icon")
+        print("Usage: /giga settings to open settings, /giga minimap to toggle minimap icon, /giga nsfw to toggle NSFW emotes, /giga wide to toggle wide emotes, /giga errors to list caught errors")
     end
 
 end
@@ -190,20 +403,31 @@ function judhead_startup()
     local i = 1;
 
     -- Setup minimap icon
-    InitMinimapIcon();
-    for k, v in pairs(judhead_emotes) do
-        local emotePath = v
-        if isWoWForever then
-            emotePath = emotePath:gsub(":28:28$", ":20:20")
-        end
-
-        TwitchEmotes:AddEmote(k, k, emotePath);
-        suggestions[i] = k;
-        i = i + 1;
+    SafeCall(InitMinimapIcon)
+    if type(judhead_emotes) ~= "table" then
+        return
     end
 
-    GigaTwitchEmotesRenderFrame(judhead_emotes);
-    judhead_initsuggestions(suggestions);
+    local canAddEmotes = TwitchEmotes and TwitchEmotes.AddEmote
+    for k, v in pairs(judhead_emotes) do
+        if type(v) == "string" then
+            local emotePath = v
+            if isWoWForever then
+                emotePath = emotePath:gsub(":28:28$", ":20:20")
+            end
+
+            if canAddEmotes then
+                SafeCall(TwitchEmotes.AddEmote, TwitchEmotes, k, k, emotePath)
+                registeredEmotes[k] = true
+            end
+
+            suggestions[i] = k;
+            i = i + 1;
+        end
+    end
+
+    SafeCall(judhead_initsuggestions, suggestions)
+    SafeCall(ApplyEmoteFilters)
 end
 
 function GigaTwitchEmotesRenderFrame(emotes)
@@ -229,7 +453,7 @@ function GigaTwitchEmotesRenderFrame(emotes)
 
     -- Format table of emote strings
     for _, key in ipairs(keys) do
-        s = "|T" .. judhead_emotes[key] .. "|t   " .. key
+        local s = EmoteTag(emotes, key) .. "   " .. tostring(key)
         table.insert(data, s);
     end
 
@@ -260,11 +484,13 @@ function UpdatePageContent()
     local endIndex = math.min(startIndex + itemsPerPage - 1, totalItems)
     for i = 1, itemsPerPage do
         local dataIndex = startIndex + i - 1
-        if dataIndex <= endIndex then
-            content[i]:SetText(data[dataIndex])
-            TwitchEmotesAnimator_UpdateEmoteInFontString(content[i], 0, 0)
-        else
-            content[i]:SetText("")
+        if content[i] then
+            if dataIndex <= endIndex then
+                content[i]:SetText(data[dataIndex])
+                TwitchEmotesAnimator_UpdateEmoteInFontString(content[i], 0, 0)
+            else
+                content[i]:SetText("")
+            end
         end
 
     end
@@ -277,8 +503,9 @@ end
 local function SearchData(query)
     query = string.lower(query) -- Case-insensitive search
     local matches = {}
-    for k, v in pairs(judhead_emotes) do
-        if string.find(string.lower(k), query) then
+    for k, v in pairs(GetVisibleEmotes()) do
+        -- Plain find: characters like % or [ in the query are not patterns.
+        if string.find(string.lower(k), query, 1, true) then
             matches[k] = v
         end
 
@@ -305,15 +532,185 @@ tabContents[1]:SetScript("OnHide", function()
     searchBoxFrame:Hide()
 end)
 
--- Update results dynamically as user types
-searchBox:SetScript("OnTextChanged", function(self)
-    local query = self:GetText()
+-- Redraw the browser for the current search text and filters.
+local function RefreshBrowser()
+    local query = searchBox:GetText()
     if query and query ~= "" then
         SearchData(query)
     else
-        GigaTwitchEmotesRenderFrame(judhead_emotes)
+        GigaTwitchEmotesRenderFrame(GetVisibleEmotes())
+    end
+end
+
+ApplyEmoteFilters = function()
+    SafeCall(ApplyChatAndSuggestionFilters)
+    SafeCall(RefreshBrowser)
+end
+
+-- Update results dynamically as user types
+searchBox:SetScript("OnTextChanged", function()
+    SafeCall(RefreshBrowser)
+end)
+
+-------------------------------------------------------------------------------
+-- Native settings page: Options > AddOns > Giga Twitch Emotes.
+-------------------------------------------------------------------------------
+local settingsCategory = nil -- Settings API category
+local legacySettingsPanel = nil -- Interface Options panel on older clients
+local nativeSettings = {} -- setting key -> Settings API setting object
+
+local function ApplySetting(key)
+    if key == "minimap" then
+        SafeCall(UpdateMinimapIcon)
+    else
+        SafeCall(ApplyEmoteFilters)
+    end
+end
+
+-- Change a setting from code (slash commands) and keep the page in sync.
+SetGigaSetting = function(key, value)
+    local setting = nativeSettings[key]
+    if setting and setting.SetValue then
+        SafeCall(setting.SetValue, setting, value)
     end
 
+    Giga_Settings[key] = value
+    ApplySetting(key)
+end
+
+local function RegisterBlizzardSettings()
+    if not (Settings
+        and Settings.RegisterVerticalLayoutCategory
+        and Settings.RegisterAddOnSetting
+        and Settings.RegisterAddOnCategory)
+    then
+        return false
+    end
+
+    local createCheckbox = Settings.CreateCheckbox or Settings.CreateCheckBox
+    if not createCheckbox then
+        return false
+    end
+
+    local category = Settings.RegisterVerticalLayoutCategory(SETTINGS_CATEGORY_NAME)
+    local booleanType = (Settings.VarType and Settings.VarType.Boolean) or "boolean"
+
+    -- The War Within changed RegisterAddOnSetting to store values straight
+    -- in a table; RegisterProxySetting was added in the same patch.
+    local storesInTable = Settings.RegisterProxySetting ~= nil
+
+    for _, def in ipairs(SETTING_DEFINITIONS) do
+        local key = def.key
+        local variable = "GigaTwitchEmotes_" .. key
+        local setting
+        if storesInTable then
+            setting = Settings.RegisterAddOnSetting(
+                category, variable, key, Giga_Settings, booleanType, def.name, def.default
+            )
+        else
+            setting = Settings.RegisterAddOnSetting(
+                category, def.name, variable, booleanType, def.default
+            )
+            setting:SetValue(Giga_Settings[key] == true)
+        end
+
+        local function OnValueChanged()
+            Giga_Settings[key] = setting:GetValue() == true
+            ApplySetting(key)
+        end
+
+        if setting.SetValueChangedCallback then
+            setting:SetValueChangedCallback(function()
+                SafeCall(OnValueChanged)
+            end)
+        elseif Settings.SetOnValueChangedCallback then
+            Settings.SetOnValueChangedCallback(variable, function()
+                SafeCall(OnValueChanged)
+            end)
+        end
+
+        createCheckbox(category, setting, def.tooltip)
+        nativeSettings[key] = setting
+    end
+
+    Settings.RegisterAddOnCategory(category)
+    settingsCategory = category
+    return true
+end
+
+-- Clients without the Settings API use the older Interface Options page.
+local function RegisterLegacySettings()
+    if not InterfaceOptions_AddCategory then
+        return
+    end
+
+    local panel = CreateFrame("Frame")
+    panel.name = SETTINGS_CATEGORY_NAME
+
+    local title = panel:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+    title:SetPoint("TOPLEFT", 16, -16)
+    title:SetText(SETTINGS_CATEGORY_NAME)
+
+    for i, def in ipairs(SETTING_DEFINITIONS) do
+        local key = def.key
+        local check = CreateFrame("CheckButton", nil, panel, "UICheckButtonTemplate")
+        check:SetPoint("TOPLEFT", 16, -50 - (i - 1) * 30)
+        check.tooltipText = def.name
+        check.tooltipRequirement = def.tooltip
+
+        local text = check:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+        text:SetPoint("LEFT", check, "RIGHT", 4, 0)
+        text:SetText(def.name)
+
+        check:SetScript("OnShow", function(self)
+            self:SetChecked(Giga_Settings[key] == true)
+        end)
+        check:SetScript("OnClick", function(self)
+            SafeCall(SetGigaSetting, key, self:GetChecked() and true or false)
+        end)
+    end
+
+    InterfaceOptions_AddCategory(panel)
+    legacySettingsPanel = panel
+end
+
+RegisterSettingsPage = function()
+    local ok, registered = pcall(RegisterBlizzardSettings)
+    if not ok then
+        RecordError(registered)
+    end
+
+    if not (ok and registered) then
+        SafeCall(RegisterLegacySettings)
+    end
+end
+
+OpenGigaSettings = function()
+    -- Opening Blizzard's settings from addon code in combat can taint it.
+    if InCombatLockdown and InCombatLockdown() then
+        print("|cFFFF69B4[GIGA] Settings can't be opened in combat.|r")
+        return
+    end
+
+    MyAddonFrame:Hide()
+    if settingsCategory and Settings and Settings.OpenToCategory then
+        Settings.OpenToCategory(settingsCategory:GetID())
+    elseif legacySettingsPanel and InterfaceOptionsFrame_OpenToCategory then
+        -- Called twice: the first call can land on the wrong page.
+        InterfaceOptionsFrame_OpenToCategory(legacySettingsPanel)
+        InterfaceOptionsFrame_OpenToCategory(legacySettingsPanel)
+    else
+        print("|cFFFF69B4[GIGA] Use /giga nsfw, /giga wide or /giga minimap to change settings.|r")
+    end
+end
+
+-- Settings button on the emote browser.
+local settingsButton = CreateFrame("Button", nil, tabContents[1], "GameMenuButtonTemplate")
+settingsButton:SetPoint("TOPRIGHT", tabContents[1], "TOPRIGHT", -12, -32)
+settingsButton:SetSize(80, 20)
+settingsButton:SetText("Settings")
+settingsButton:SetScript("OnClick", function()
+    SafeCall(OpenGigaSettings)
 end)
 
 -- update animated emotes
@@ -323,7 +720,7 @@ MyAddonFrame:SetScript("OnUpdate", function(self, deltaTime)
     if self:IsShown() then -- Only run while the frame is visible
         elapsed = elapsed + deltaTime
         if elapsed >= interval then
-            UpdatePageContent();
+            SafeCall(UpdatePageContent)
             elapsed = 0 -- Reset timer
         end
 
@@ -332,18 +729,42 @@ MyAddonFrame:SetScript("OnUpdate", function(self, deltaTime)
 end)
 
 function InitMinimapIcon()
-    GigaTwitchIcon = LDB:NewDataObject("GIGATwitchEmotes", {
-        type = "launcher",
-        text = "GIGATwitchEmotes",
-        icon = "Interface\\AddOns\\TwitchEmotes_Giga\\emotes\\PEPW.tga",
-        OnClick = GIGATwitchEmotes_MinimapButton_OnClick
-    })
-    if Giga_Settings.minimap then
-        LDBIcon:Register("GIGATwitchEmotes", GigaTwitchIcon, Giga_Settings)
-    else
-        LDBIcon:Hide("GIGATwitchEmotes");
+    if not LDB or not LDBIcon then
+        return
     end
 
+    -- NewDataObject returns nil if the name is already registered.
+    GigaTwitchIcon = LDB:GetDataObjectByName("GIGATwitchEmotes")
+        or LDB:NewDataObject("GIGATwitchEmotes", {
+            type = "launcher",
+            text = "GIGATwitchEmotes",
+            icon = "Interface\\AddOns\\TwitchEmotes_Giga\\emotes\\PEPW.tga",
+            OnClick = GIGATwitchEmotes_MinimapButton_OnClick
+        })
+    if not GigaTwitchIcon then
+        return
+    end
+
+    UpdateMinimapIcon()
+
+end
+
+-- Show or hide the minimap icon to match the setting, without a reload.
+UpdateMinimapIcon = function()
+    if not LDBIcon or not GigaTwitchIcon then
+        return
+    end
+
+    if Giga_Settings.minimap then
+        local registered = LDBIcon.IsRegistered and LDBIcon:IsRegistered("GIGATwitchEmotes")
+        if not registered then
+            LDBIcon:Register("GIGATwitchEmotes", GigaTwitchIcon, Giga_Settings)
+        end
+
+        LDBIcon:Show("GIGATwitchEmotes")
+    else
+        LDBIcon:Hide("GIGATwitchEmotes")
+    end
 end
 
 function judhead_concat(t1, t2)
@@ -354,77 +775,140 @@ function judhead_concat(t1, t2)
     return t1
 end
 
--- Ellesmere's history hook also handles Up/Down. Keep it from replacing
--- autocomplete text while the suggestion dropdown belongs to this edit box.
-local function SetupEllesmereArrowCompatibility(editBox)
-    if editBox.gigaArrowCompatibility then
+-- Ellesmere recalls sent lines on plain Up/Down from its own OnKeyDown hook,
+-- which would overwrite the text while our suggestion dropdown is using the
+-- arrow keys. Its handler does nothing when the edit box's recall history is
+-- empty, so while the dropdown is open we give Ellesmere an empty history and
+-- put the real one back when it closes. This only touches Ellesmere's own
+-- state (EllesmereUI._chatCFD) and never Blizzard's edit box, so unlike
+-- replacing editBox.SetText it cannot taint chat.
+local ELLESMERE_HISTORY_LIMIT = 50 -- matches EUI_Chat_EditBox.lua
+local hiddenEllesmereHistory = nil -- { editBox, state, history, placeholder }
+
+local function RestoreEllesmereHistory()
+    local hidden = hiddenEllesmereHistory
+    if not hidden then
         return
     end
 
-    local originalSetText = editBox.SetText
+    hiddenEllesmereHistory = nil
 
-    editBox.SetText = function(self, text, ...)
-        local dropdown = EditBoxAutoCompleteBox
-
-        if dropdown
-            and dropdown:IsShown()
-            and dropdown.parent == self
-            and not IsAltKeyDown()
-        then
-            local stack = debugstack(2, 4, 0)
-
-            if type(stack) == "string"
-                and stack:find("EUI_Chat_EditBox.lua", 1, true)
-            then
-                return
-            end
-        end
-
-        return originalSetText(self, text, ...)
+    -- If Ellesmere replaced the table itself, leave its new one alone.
+    if hidden.state.history ~= hidden.placeholder then
+        return
     end
 
-    editBox.gigaArrowCompatibility = true
+    -- Keep any line that was sent while the dropdown was open.
+    local history = hidden.history
+    for _, line in ipairs(hidden.placeholder) do
+        if history[#history] ~= line then
+            history[#history + 1] = line
+            if #history > ELLESMERE_HISTORY_LIMIT then
+                table.remove(history, 1)
+            end
+        end
+    end
+
+    hidden.state.history = history
+end
+
+local function HideEllesmereHistory(editBox)
+    local getState = EllesmereUI and EllesmereUI._chatCFD
+    if type(getState) ~= "function" then
+        return
+    end
+
+    local state = getState(editBox)
+    if type(state) ~= "table" or type(state.history) ~= "table" then
+        return
+    end
+
+    local placeholder = {}
+    hiddenEllesmereHistory = {
+        editBox = editBox,
+        state = state,
+        history = state.history,
+        placeholder = placeholder,
+    }
+    state.history = placeholder
+end
+
+local function UpdateEllesmereHistory()
+    local dropdown = EditBoxAutoCompleteBox
+    local owner = dropdown and dropdown:IsShown() and dropdown.parent or nil
+    local hidden = hiddenEllesmereHistory
+
+    if hidden and hidden.editBox == owner then
+        return
+    end
+
+    RestoreEllesmereHistory()
+    if owner then
+        HideEllesmereHistory(owner)
+    end
+end
+
+-- Polled rather than hooking the dropdown so it also follows the dropdown
+-- moving between edit boxes. The dropdown opens on typing, so it is always
+-- seen at least a frame before an arrow key can reach Ellesmere.
+local ellesmereWatcher = nil
+local function SetupEllesmereArrowCompatibility()
+    if ellesmereWatcher then
+        return
+    end
+
+    ellesmereWatcher = CreateFrame("Frame")
+    ellesmereWatcher:SetScript("OnUpdate", function()
+        SafeCall(UpdateEllesmereHistory)
+    end)
 end
 
 function judhead_initsuggestions(suggestions)
-    if AllTwitchEmoteNames ~= nil and Emoticons_Settings ~= nil and Emoticons_RenderSuggestionFN ~= nil and Emoticons_Settings["ENABLE_AUTOCOMPLETE"] then
+    if AllTwitchEmoteNames ~= nil and Emoticons_Settings ~= nil and Emoticons_RenderSuggestionFN ~= nil and Emoticons_Settings["ENABLE_AUTOCOMPLETE"] and SetupAutoComplete ~= nil then
         judhead_concat(suggestions, AllTwitchEmoteNames);
         table.sort(suggestions);
-        for i=1, NUM_CHAT_WINDOWS do
+
+        -- Keep the full list so filters can be toggled back off.
+        allSuggestions = judhead_concat({}, suggestions)
+        activeSuggestions = suggestions
+        for i=1, (NUM_CHAT_WINDOWS or 0) do
             local frame = _G["ChatFrame"..i]
             local maxButtonCount = 20;
-            SetupAutoComplete(frame.editBox, suggestions, maxButtonCount, {
-                perWord = true,
-                activationChar = ':',
-                closingChar = ':',
-                minChars = 2,
-                fuzzyMatch = true,
-                onSuggestionApplied = function(suggestion)
-                    if UpdateEmoteStats ~= nil then
-                        UpdateEmoteStats(suggestion, true, false, false);
-                    end
+            if frame and frame.editBox then
+                SafeCall(SetupAutoComplete, frame.editBox, suggestions, maxButtonCount, {
+                    perWord = true,
+                    activationChar = ':',
+                    closingChar = ':',
+                    minChars = 2,
+                    fuzzyMatch = true,
+                    onSuggestionApplied = function(suggestion)
+                        if UpdateEmoteStats ~= nil then
+                            UpdateEmoteStats(suggestion, true, false, false);
+                        end
 
-                end,
-                renderSuggestionFN = Emoticons_RenderSuggestionFN,
-                suggestionBiasFN = function(suggestion, text)
-                    --Bias the sorting function towards the most autocompleted emotes
-                    if TwitchEmoteStatistics ~= nil and TwitchEmoteStatistics[suggestion] ~= nil then
-                        return TwitchEmoteStatistics[suggestion][1] * 5
-                    end
+                    end,
+                    renderSuggestionFN = Emoticons_RenderSuggestionFN,
+                    suggestionBiasFN = function(suggestion, text)
+                        --Bias the sorting function towards the most autocompleted emotes
+                        local stats = TwitchEmoteStatistics and TwitchEmoteStatistics[suggestion]
+                        if type(stats) == "table" and tonumber(stats[1]) then
+                            return tonumber(stats[1]) * 5
+                        end
 
-                    return 0;
-                end,
-                interceptOnEnterPressed = true,
-                addSpace = true,
-                useTabToConfirm = Emoticons_Settings["AUTOCOMPLETE_CONFIRM_WITH_TAB"],
-                useArrowButtons = true,
-            });
-
-            if C_AddOns and C_AddOns.IsAddOnLoaded
-                and C_AddOns.IsAddOnLoaded("EllesmereUIChat")
-            then
-                SetupEllesmereArrowCompatibility(frame.editBox)
+                        return 0;
+                    end,
+                    interceptOnEnterPressed = true,
+                    addSpace = true,
+                    useTabToConfirm = Emoticons_Settings["AUTOCOMPLETE_CONFIRM_WITH_TAB"],
+                    useArrowButtons = true,
+                });
             end
+        end
+
+        if C_AddOns and C_AddOns.IsAddOnLoaded
+            and C_AddOns.IsAddOnLoaded("EllesmereUIChat")
+        then
+            SafeCall(SetupEllesmereArrowCompatibility)
         end
 
     end
@@ -466,7 +950,24 @@ local function escpattern(x)
              :gsub('%?', '%%?'))
 end
 
-function TwitchEmotesAnimator_UpdateEmoteInFontString(fontstring, widthOverride, heightOverride)
+local function UpdateEmoteInFontString(fontstring, widthOverride, heightOverride)
+    if not fontstring or not fontstring.GetText then
+        return
+    end
+
+    if fontstring.IsForbidden and fontstring:IsForbidden() then
+        return
+    end
+
+    local metadata = TwitchEmotes_animation_metadata
+    if type(metadata) ~= "table"
+        or not TwitchEmotes_GetCurrentFrameNum
+        or not TwitchEmotes_BuildEmoteFrameString
+        or not TwitchEmotes_BuildEmoteFrameStringWithDimensions
+    then
+        return
+    end
+
     local txt = fontstring:GetText()
     if txt == nil then
         return
@@ -481,10 +982,18 @@ function TwitchEmotesAnimator_UpdateEmoteInFontString(fontstring, widthOverride,
         return
     end
 
+    if type(txt) ~= "string" then
+        return
+    end
+
     for emoteTextureString in txt:gmatch("(|TInterface\\AddOns\\TwitchEmotes.-|t)") do
         local imagepath = emoteTextureString:match("|T([^:]+%.tga)")
-        local animdata = imagepath and TwitchEmotes_animation_metadata[imagepath]
-        if animdata ~= nil then
+        local animdata = imagepath and metadata[imagepath]
+        if type(animdata) == "table"
+            and type(animdata.frameWidth) == "number"
+            and type(animdata.frameHeight) == "number"
+            and animdata.frameHeight > 0
+        then
             local framenum = TwitchEmotes_GetCurrentFrameNum(animdata)
             local frameString
             if animdata.frameWidth > animdata.frameHeight then
@@ -520,20 +1029,30 @@ function TwitchEmotesAnimator_UpdateEmoteInFontString(fontstring, widthOverride,
                 )
             end
 
-            local nTxt = txt:gsub(
-                escpattern(emoteTextureString),
-                frameString
-            )
-            if fontstring.messageInfo ~= nil then
-                fontstring.messageInfo.message = nTxt
-            end
+            if type(frameString) == "string" then
+                -- Function replacement so a % in frameString is not
+                -- treated as a capture reference.
+                local nTxt = txt:gsub(
+                    escpattern(emoteTextureString),
+                    function() return frameString end
+                )
+                if type(fontstring.messageInfo) == "table" then
+                    fontstring.messageInfo.message = nTxt
+                end
 
-            fontstring:SetText(nTxt)
-            txt = nTxt
+                fontstring:SetText(nTxt)
+                txt = nTxt
+            end
         end
 
     end
 
+end
+
+-- Global because the base TwitchEmotes addon calls it for Blizzard chat.
+-- Errors are caught so a single bad FontString never raises a Lua error.
+function TwitchEmotesAnimator_UpdateEmoteInFontString(fontstring, widthOverride, heightOverride)
+    SafeCall(UpdateEmoteInFontString, fontstring, widthOverride, heightOverride)
 end
 
 -- Custom chat addon animation and Chattynator tooltip compatibility.
@@ -568,26 +1087,40 @@ do
         return false
     end
 
-	local function DiscoverCustomChatFrames()
-	    local found = {}
-	    local frame = EnumerateFrames()
+    -- Some frames (e.g. aura buttons) are not reported as forbidden but
+    -- still error when tainted code calls methods on them, so callers
+    -- run this through pcall.
+    local function IsCustomChatFrame(frame)
+        return not (frame.IsForbidden and frame:IsForbidden())
+            and not frame:GetName()
+            and not IsBlizzardChatFrame(frame)
+    end
 
-	    while frame do
-		if not (frame.IsForbidden and frame:IsForbidden()) then
-		    if not frame:GetName()
-			and frame.visibleLines
-			and not IsBlizzardChatFrame(frame)
-		    then
-			found[#found + 1] = frame
-		    end
-		end
+    local function DiscoverCustomChatFrames()
+        local found = {}
+        local frame = EnumerateFrames()
 
-		frame = EnumerateFrames(frame)
-	    end
+        while frame do
+            -- Check the raw field first so we never call methods on
+            -- unrelated frames.
+            if type(frame) == "table"
+                and type(rawget(frame, "visibleLines")) == "table"
+            then
+                local ok, isChat = pcall(IsCustomChatFrame, frame)
+                if ok and isChat then
+                    found[#found + 1] = frame
+                end
+            end
 
-	    customFrames = found
-	end
+            frame = EnumerateFrames(frame)
+        end
 
+        customFrames = found
+    end
+
+    local function CanReadFrame(frame)
+        return not (frame.IsForbidden and frame:IsForbidden())
+    end
 
     -- Find the displayed dimensions of an emote in Chattynator.
 
@@ -595,14 +1128,15 @@ do
 
     local function GetEmoteDisplaySize(emoteName)
         for _, frame in ipairs(customFrames) do
-            if not (frame.IsForbidden and frame:IsForbidden())
-		and frame.pool
+            if CanReadFrame(frame)
+                and frame.pool
                 and frame.scrollIndex
-                and frame.visibleLines
+                and type(frame.visibleLines) == "table"
             then
                 for _, line in ipairs(frame.visibleLines) do
                     local txt = line:GetText()
                     if type(txt) == "string"
+                        and (not canaccessvalue or canaccessvalue(txt))
                         and (not issecretvalue or not issecretvalue(txt))
                         and txt:find(emoteName, 1, true)
                     then
@@ -648,6 +1182,34 @@ do
         return 28, 28
     end
 
+    local function AnimateCustomChatFrame(frame)
+        if not CanReadFrame(frame)
+            or not frame:IsShown()
+            or type(frame.visibleLines) ~= "table"
+        then
+            return
+        end
+
+        for _, line in ipairs(frame.visibleLines) do
+
+            -- Avoid skipping Chattynator lines when
+
+            -- both messageInfo and hover reference are nil.
+            local isHoverMessage =
+                TwitchEmotes_HoverMessageInfo ~= nil
+                and type(line) == "table"
+                and line.messageInfo == TwitchEmotes_HoverMessageInfo
+            if not isHoverMessage then
+                TwitchEmotesAnimator_UpdateEmoteInFontString(
+                    line,
+                    28,
+                    28
+                )
+            end
+
+        end
+    end
+
     -- Animate custom chat FontStrings, including Ellesmere and Chattynator.
     local animator = CreateFrame("Frame")
     animator:SetScript("OnUpdate", function(_, elapsed)
@@ -655,7 +1217,7 @@ do
         updateElapsed = updateElapsed + elapsed
         if discoveryElapsed >= DISCOVERY_INTERVAL then
             discoveryElapsed = 0
-            DiscoverCustomChatFrames()
+            SafeCall(DiscoverCustomChatFrames)
         end
 
         if updateElapsed < UPDATE_INTERVAL then
@@ -663,32 +1225,10 @@ do
         end
 
         updateElapsed = 0
-        if not TwitchEmotesAnimator_UpdateEmoteInFontString then
-            return
-        end
 
+        -- Per-frame so one bad frame does not stop the others animating.
         for _, frame in ipairs(customFrames) do
-            if not (frame.IsForbidden and frame:IsForbidden()) and frame:IsShown() and frame.visibleLines then
-                for _, line in ipairs(frame.visibleLines) do
-
-                    -- Avoid skipping Chattynator lines when
-
-                    -- both messageInfo and hover reference are nil.
-                    local isHoverMessage =
-                        TwitchEmotes_HoverMessageInfo ~= nil
-                        and line.messageInfo == TwitchEmotes_HoverMessageInfo
-                    if not isHoverMessage then
-                        TwitchEmotesAnimator_UpdateEmoteInFontString(
-                            line,
-                            28,
-                            28
-                        )
-                    end
-
-                end
-
-            end
-
+            SafeCall(AnimateCustomChatFrame, frame)
         end
 
     end)
@@ -714,9 +1254,31 @@ do
         GameTooltip:Hide()
     end
 
-    local loader = CreateFrame("Frame")
-    loader:RegisterEvent("PLAYER_LOGIN")
-    loader:SetScript("OnEvent", function()
+    local function OnChattynatorHyperlinkEnter(_, link)
+        if type(link) ~= "string" then
+            return
+        end
+
+        local emoteName = link:match("^tel:(.+)")
+        if not emoteName then
+            return
+        end
+
+        hoveredName = emoteName
+
+        -- Calculate dimensions when the emote is hovered,
+
+        -- not during addon initialization.
+        local width, height = SafeCall(GetEmoteDisplaySize, emoteName)
+        hoverWidth, hoverHeight = width or 28, height or 28
+
+        -- Cursor coordinates are in physical pixels.
+        hoverX, hoverY = GetCursorPosition()
+        tooltipElapsed = 0
+        ShowEmoteTooltip()
+    end
+
+    local function HookChattynator()
         if not Chattynator
             or not Chattynator.API
             or not Chattynator.API.GetHyperlinkHandler
@@ -725,42 +1287,27 @@ do
         end
 
         local handler = Chattynator.API.GetHyperlinkHandler()
-        if not handler then
+        if not handler or not handler.HookScript then
             return
         end
 
-        handler:HookScript("OnHyperlinkEnter", function(_, link)
-            if type(link) ~= "string" then
-                return
-            end
-
-            local emoteName = link:match("^tel:(.+)")
-            if not emoteName then
-                return
-            end
-
-            hoveredName = emoteName
-
-            -- Calculate dimensions when the emote is hovered,
-
-            -- not during addon initialization.
-            hoverWidth, hoverHeight =
-                GetEmoteDisplaySize(emoteName)
-
-            -- Cursor coordinates are in physical pixels.
-            hoverX, hoverY = GetCursorPosition()
-            tooltipElapsed = 0
-            ShowEmoteTooltip()
+        handler:HookScript("OnHyperlinkEnter", function(...)
+            SafeCall(OnChattynatorHyperlinkEnter, ...)
         end)
 
         -- Do not clear on OnHyperlinkLeave.
 
         -- Animated SetText() calls can invalidate hover state.
+    end
+
+    local loader = CreateFrame("Frame")
+    loader:RegisterEvent("PLAYER_LOGIN")
+    loader:SetScript("OnEvent", function()
+        SafeCall(HookChattynator)
     end)
 
     -- Keep the tooltip visible through animation updates.
-    local tooltipTracker = CreateFrame("Frame")
-    tooltipTracker:SetScript("OnUpdate", function(_, elapsed)
+    local function TrackTooltip(elapsed)
         if not hoveredName then
             return
         end
@@ -796,6 +1343,11 @@ do
             ShowEmoteTooltip()
         end
 
+    end
+
+    local tooltipTracker = CreateFrame("Frame")
+    tooltipTracker:SetScript("OnUpdate", function(_, elapsed)
+        SafeCall(TrackTooltip, elapsed)
     end)
 
 end
@@ -817,7 +1369,7 @@ do
     local function GetAnimatedEmoteDimensions(name)
         local texture = (judhead_emotes and judhead_emotes[name])
             or (TwitchEmotes_defaultpack and TwitchEmotes_defaultpack[name])
-        if not texture then return nil end
+        if type(texture) ~= "string" then return nil end
         local path = texture:match("^(.-%.tga)")
         if not path then return nil end
         local animdata = TwitchEmotes_animation_metadata
@@ -885,70 +1437,50 @@ do
         if not CHAT_FRAMES then return end
         for _, frameName in ipairs(CHAT_FRAMES) do
             local frame = _G[frameName]
-            if frame then
-                frame:HookScript(
-                    "OnHyperlinkEnter", OnHyperlinkEnter
-                )
+            if frame and frame.HookScript then
+                SafeCall(frame.HookScript, frame, "OnHyperlinkEnter", function(...)
+                    SafeCall(OnHyperlinkEnter, ...)
+                end)
             end
 
         end
 
     end)
 
-    local tracker = CreateFrame("Frame")
-    tracker:SetScript("OnUpdate", function(_, elapsed)
-        animationElapsed = animationElapsed + elapsed
-        tooltipElapsed = tooltipElapsed + elapsed
+    local function AnimateHoveredLines(frame, info, updatedLines)
+        if not frame:IsShown() or type(frame.visibleLines) ~= "table" then
+            return
+        end
 
-        -- Animate only the hovered message that upstream skips.
-        if animationElapsed >= UPDATE_INTERVAL then
-            animationElapsed = 0
-            local info = TwitchEmotes_HoverMessageInfo
-            if info
-                and CHAT_FRAMES
-                and TwitchEmotesAnimator_UpdateEmoteInFontString
+        for _, line in ipairs(frame.visibleLines) do
+            if type(line) == "table"
+                and line.messageInfo == info
+                and not updatedLines[line]
             then
-                local updatedLines = {}
-                for _, frameName in ipairs(CHAT_FRAMES) do
-                    local frame = _G[frameName]
-                    if frame
-                        and frame:IsShown()
-                        and frame.visibleLines
-                    then
-                        for _, line in ipairs(frame.visibleLines) do
-                            if line.messageInfo == info
-                                and not updatedLines[line]
-                            then
-                                updatedLines[line] = true
-                                TwitchEmotesAnimator_UpdateEmoteInFontString(
-                                    line, 28, 28
-                                )
+                updatedLines[line] = true
+                TwitchEmotesAnimator_UpdateEmoteInFontString(
+                    line, 28, 28
+                )
 
-                                -- Restore immediately if this update dismissed
+                -- Restore immediately if this update dismissed
 
-                                -- the tooltip for the animated emote.
-                                if hoveredName and not GameTooltip:IsShown() then
-                                    RestoreTooltip()
-                                end
-
-                            end
-
-                        end
-
-                    end
-
+                -- the tooltip for the animated emote.
+                if hoveredName and not GameTooltip:IsShown() then
+                    RestoreTooltip()
                 end
 
             end
 
         end
+    end
 
-        if tooltipElapsed < TOOLTIP_INTERVAL then
+    local function TrackHover()
+        if not hoveredName then return end
+        if not hoverX or not hoverY then
+            ClearHover()
             return
         end
 
-        tooltipElapsed = 0
-        if not hoveredName then return end
         local x, y = GetCursorPosition()
         local scale = UIParent:GetEffectiveScale()
         local dx = math.abs(x - hoverX)
@@ -967,7 +1499,37 @@ do
         if not GameTooltip:IsShown() then
             RestoreTooltip()
         end
+    end
 
+    local tracker = CreateFrame("Frame")
+    tracker:SetScript("OnUpdate", function(_, elapsed)
+        animationElapsed = animationElapsed + elapsed
+        tooltipElapsed = tooltipElapsed + elapsed
+
+        -- Animate only the hovered message that upstream skips.
+        if animationElapsed >= UPDATE_INTERVAL then
+            animationElapsed = 0
+            local info = TwitchEmotes_HoverMessageInfo
+            if info and CHAT_FRAMES then
+                local updatedLines = {}
+                for _, frameName in ipairs(CHAT_FRAMES) do
+                    local frame = _G[frameName]
+                    if frame then
+                        SafeCall(AnimateHoveredLines, frame, info, updatedLines)
+                    end
+
+                end
+
+            end
+
+        end
+
+        if tooltipElapsed < TOOLTIP_INTERVAL then
+            return
+        end
+
+        tooltipElapsed = 0
+        SafeCall(TrackHover)
     end)
 
 end

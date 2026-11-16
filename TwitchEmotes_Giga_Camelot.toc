@@ -1,8 +1,9 @@
 ## Interface: 16001
-## Version: 2.1.1
+## Version: 2.1.2
 ## Title: Giga Twitch Emotes
 ## Dependencies: TwitchEmotes
 ## SavedVariables: Giga_Settings
 emotes.lua
+nsfw_emotes.lua
 animation.lua
 main.lua
