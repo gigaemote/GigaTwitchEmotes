@@ -1,3 +1,7 @@
+-- Private addon namespace shared with bufftracker.lua.
+local _, ns = ...
+ns = ns or {}
+
 -- Errors caught by SafeCall are recorded here instead of being raised, so a
 -- restricted frame or a change in another addon never shows users a Lua
 -- error. Use /giga errors to print them.
@@ -33,6 +37,9 @@ end
 local function SafeCall(fn, ...)
     return HandleCallResult(pcall(fn, ...))
 end
+
+ns.SafeCall = SafeCall
+ns.RecordError = RecordError
 
 local LDB = LibStub and LibStub("LibDataBroker-1.1", true)
 local LDBIcon = LibStub and LibStub("LibDBIcon-1.0", true)
@@ -74,6 +81,12 @@ local SETTING_DEFINITIONS = {
         name = "Hide wide emotes",
         default = false,
         tooltip = "Show emotes wider than " .. WIDE_EMOTE_MAX_WIDTH .. "px as plain text in new chat messages and leave them out of autocomplete and the emote browser.",
+    },
+    {
+        key = "clickEmotes",
+        name = "Click emotes in chat",
+        default = true,
+        tooltip = "Click an emote in a chat message to add it to the message you're typing.",
     },
     {
         key = "minimap",
@@ -145,6 +158,14 @@ local function IsEmoteHidden(name)
     return false
 end
 
+-- Emotes the player switched off in the emote browser. They stay listed
+-- there (so they can be switched back on) but show as text in chat.
+local function IsEmoteDisabled(name)
+    return type(Giga_Settings) == "table"
+        and type(Giga_Settings.disabledEmotes) == "table"
+        and Giga_Settings.disabledEmotes[name] == true
+end
+
 local function GetVisibleEmotes()
     local visible = {}
     if type(judhead_emotes) ~= "table" then
@@ -164,7 +185,7 @@ local function ApplyChatAndSuggestionFilters()
     -- TwitchEmotes only swaps a word for an emote if it is in this table.
     if type(TwitchEmotes_emoticons) == "table" then
         for name in pairs(registeredEmotes) do
-            if IsEmoteHidden(name) then
+            if IsEmoteHidden(name) or IsEmoteDisabled(name) then
                 TwitchEmotes_emoticons[name] = nil
             else
                 TwitchEmotes_emoticons[name] = name
@@ -178,7 +199,7 @@ local function ApplyChatAndSuggestionFilters()
         end
 
         for _, name in ipairs(allSuggestions) do
-            if not (registeredEmotes[name] and IsEmoteHidden(name)) then
+            if not (registeredEmotes[name] and (IsEmoteHidden(name) or IsEmoteDisabled(name))) then
                 activeSuggestions[#activeSuggestions + 1] = name
             end
         end
@@ -187,7 +208,7 @@ end
 
 -- Main frame
 local MyAddonFrame = CreateFrame("Frame", "MyAddonMainFrame", UIParent, "BasicFrameTemplateWithInset")
-MyAddonFrame:SetSize(600, 550) -- Width, Height
+MyAddonFrame:SetSize(680, 550) -- Width, Height
 MyAddonFrame:SetPoint("CENTER") -- Position in the center of the screen
 MyAddonFrame.title = MyAddonFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 MyAddonFrame.title:SetPoint("CENTER", MyAddonFrame.TitleBg, "CENTER", 0, 0)
@@ -211,7 +232,7 @@ local aboutText = (
 EmoteTag(TwitchEmotes_defaultpack, "moon2CUTE")
 )
 local tabs = {}
-local tabNames = {"Emotes", "About"}
+local tabNames = {"Emotes", "About", "Buffs", "Kills"}
 local panelType = "PanelTabButtonTemplate"
 for i, name in ipairs(tabNames) do
     local tab = CreateFrame("Button", "$parentTab"..i, MyAddonFrame, panelType)
@@ -260,6 +281,28 @@ end
 
 -- Show the first tab content by default
 tabContents[1]:Show()
+
+-- The Buffs tab is filled in by bufftracker.lua.
+local BUFFS_TAB = 3
+ns.buffPanel = tabContents[BUFFS_TAB]
+
+-- The Kills tab is filled in by killtracker.lua.
+local KILLS_TAB = 4
+ns.killPanel = tabContents[KILLS_TAB]
+
+local function OpenTab(tabID)
+    MyAddonFrame:Show()
+    PanelTemplates_SetTab(MyAddonFrame, tabID)
+    ShowTabContent(tabID)
+end
+
+local function OpenBuffScores()
+    OpenTab(BUFFS_TAB)
+end
+
+local function OpenKillScores()
+    OpenTab(KILLS_TAB)
+end
 -------------------------------------------------------------------------------
 
 -- Slash command
@@ -277,6 +320,10 @@ slashFrame:SetScript("OnEvent", function(self, event, arg1)
             if type(Giga_Settings[def.key]) ~= type(def.default) then
                 Giga_Settings[def.key] = def.default
             end
+        end
+
+        if type(Giga_Settings.disabledEmotes) ~= "table" then
+            Giga_Settings.disabledEmotes = {}
         end
 
         SafeCall(judhead_startup)
@@ -306,6 +353,10 @@ SlashCmdList["GIGA"] = function(msg)
             end
         elseif msg == "settings" then
             SafeCall(OpenGigaSettings)
+        elseif msg == "buffs" then
+            SafeCall(OpenBuffScores)
+        elseif msg == "kills" then
+            SafeCall(OpenKillScores)
         elseif msg == "nsfw" or msg == "wide" then
             local key = (msg == "nsfw") and "hideNSFW" or "hideWide"
             SafeCall(SetGigaSetting, key, not Giga_Settings[key])
@@ -320,7 +371,7 @@ SlashCmdList["GIGA"] = function(msg)
         end
 
     else
-        print("Usage: /giga settings to open settings, /giga minimap to toggle minimap icon, /giga nsfw to toggle NSFW emotes, /giga wide to toggle wide emotes, /giga errors to list caught errors")
+        print("Usage: /giga settings to open settings, /giga buffs for buff high scores, /giga kills for kill high scores, /giga minimap to toggle minimap icon, /giga nsfw to toggle NSFW emotes, /giga wide to toggle wide emotes, /giga errors to list caught errors")
     end
 
 end
@@ -365,8 +416,10 @@ local itemsPerPage = 24
 local totalItems = -1
 local totalPages = -1
 local frameInit = 0
-local content = {}
+local content = {} -- slot font strings
+local slots = {} -- slot frames: hover for the full name, checkbox to enable
 local data = {}
+local dataNames = {} -- emote name for each entry in data
 
 -- Setup prev button
 local prevButton = CreateFrame("Button", nil, tabContents[1], "GameMenuButtonTemplate")
@@ -435,6 +488,7 @@ function GigaTwitchEmotesRenderFrame(emotes)
     -- Sort emotes
     totalItems = 0
     data = {}
+    dataNames = {}
     for _, _ in pairs(emotes) do
         totalItems = totalItems + 1
     end
@@ -455,21 +509,63 @@ function GigaTwitchEmotesRenderFrame(emotes)
     for _, key in ipairs(keys) do
         local s = EmoteTag(emotes, key) .. "   " .. tostring(key)
         table.insert(data, s);
+        table.insert(dataNames, key)
     end
 
-    local rowoffset = -30
+    -- Two columns of a checkbox and a SLOT_WIDTH slot, with even margins.
+    local SLOT_WIDTH = 250
+    local rowoffset = -125
     local coloffset = 1
 
     -- Two rows of emotes
     if frameInit == 0 then
         frameInit = 1
         for i = 1, itemsPerPage do
-            content[i] = contentFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-            content[i]:SetPoint("TOPLEFT", rowoffset, -36 * (coloffset - 1))
+            -- Hovering a slot shows the full name, for names cut short.
+            local slot = CreateFrame("Frame", nil, contentFrame)
+            slot:SetSize(SLOT_WIDTH, 32)
+            slot:SetPoint("TOPLEFT", rowoffset, -36 * (coloffset - 1))
+            slot:EnableMouse(true)
+            slot:SetScript("OnEnter", function(self)
+                GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+                GameTooltip:SetText(tostring(self.emoteName))
+                GameTooltip:Show()
+            end)
+            slot:SetScript("OnLeave", GameTooltip_Hide)
+
+            local check = CreateFrame("CheckButton", nil, slot, "UICheckButtonTemplate")
+            check:SetSize(22, 22)
+            check:SetPoint("RIGHT", slot, "LEFT", -2, 0)
+            check:SetScript("OnClick", function(self)
+                local name = slot.emoteName
+                if not name then
+                    return
+                end
+
+                Giga_Settings.disabledEmotes[name] = (not self:GetChecked()) or nil
+                content[i]:SetAlpha(self:GetChecked() and 1 or 0.5)
+                SafeCall(ApplyChatAndSuggestionFilters)
+            end)
+            check:SetScript("OnEnter", function(self)
+                GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+                GameTooltip:SetText("Show as an emote in chat")
+                GameTooltip:AddLine("Untick to show this emote as plain text in new chat messages.", 1, 1, 1, true)
+                GameTooltip:Show()
+            end)
+            check:SetScript("OnLeave", GameTooltip_Hide)
+            slot.check = check
+
+            content[i] = slot:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+            content[i]:SetPoint("LEFT")
+            -- Long names end in "..." instead of running into the next column.
+            content[i]:SetWidth(SLOT_WIDTH)
+            content[i]:SetJustifyH("LEFT")
+            content[i]:SetWordWrap(false)
+            slots[i] = slot
             coloffset = coloffset + 1
             if coloffset > itemsPerPage / 2 then
                 coloffset = 1
-                rowoffset = 180
+                rowoffset = 179
             end
 
         end
@@ -486,10 +582,17 @@ function UpdatePageContent()
         local dataIndex = startIndex + i - 1
         if content[i] then
             if dataIndex <= endIndex then
+                local name = dataNames[dataIndex]
                 content[i]:SetText(data[dataIndex])
+                content[i]:SetAlpha(IsEmoteDisabled(name) and 0.5 or 1)
                 TwitchEmotesAnimator_UpdateEmoteInFontString(content[i], 0, 0)
+                slots[i].emoteName = name
+                slots[i].check:SetChecked(not IsEmoteDisabled(name))
+                slots[i]:Show()
             else
                 content[i]:SetText("")
+                slots[i].emoteName = nil
+                slots[i]:Hide()
             end
         end
 
@@ -531,6 +634,64 @@ end)
 tabContents[1]:SetScript("OnHide", function()
     searchBoxFrame:Hide()
 end)
+
+-------------------------------------------------------------------------------
+-- Clicking an emote in chat adds it to the chat box: at the cursor if a
+-- message is being typed, otherwise in a newly opened one.
+-------------------------------------------------------------------------------
+local function GetActiveChatBox()
+    if ChatFrameUtil and ChatFrameUtil.GetActiveWindow then
+        return ChatFrameUtil.GetActiveWindow()
+    end
+
+    return ChatEdit_GetActiveWindow and ChatEdit_GetActiveWindow()
+end
+
+local function InsertIntoChat(name)
+    local editBox = GetActiveChatBox()
+    if editBox and editBox:IsShown() then
+        -- TwitchEmotes only swaps whole words, so keep the name apart from
+        -- whatever is right before the cursor.
+        local text = editBox:GetText()
+        local cursor = editBox:GetCursorPosition()
+        local before = ""
+        if type(text) == "string" and type(cursor) == "number"
+            and not (issecretvalue and (issecretvalue(text) or issecretvalue(cursor)))
+        then
+            before = text:sub(cursor, cursor)
+        end
+
+        local prefix = (before ~= "" and not before:find("%s")) and " " or ""
+        editBox:Insert(prefix .. name .. " ")
+        editBox:SetFocus()
+        return
+    end
+
+    if ChatFrameUtil and ChatFrameUtil.OpenChat then
+        ChatFrameUtil.OpenChat(name .. " ")
+    elseif ChatFrame_OpenChat then
+        ChatFrame_OpenChat(name .. " ")
+    end
+end
+
+-- Emotes in chat are "tel:<name>" links (made by TwitchEmotes, which ignores
+-- clicks on them). Called from the chat frames' OnHyperlinkClick hooks.
+local function OnChatEmoteClick(link, button)
+    if type(Giga_Settings) ~= "table" or Giga_Settings.clickEmotes == false
+        or type(link) ~= "string" or (issecretvalue and issecretvalue(link))
+        or (button and button ~= "LeftButton")
+        or IsModifierKeyDown() -- modified clicks are left to the game
+    then
+        return
+    end
+
+    local name = link:match("^tel:(.+)")
+    if not name then
+        return
+    end
+
+    InsertIntoChat(name)
+end
 
 -- Redraw the browser for the current search text and filters.
 local function RefreshBrowser()
@@ -1294,6 +1455,9 @@ do
         handler:HookScript("OnHyperlinkEnter", function(...)
             SafeCall(OnChattynatorHyperlinkEnter, ...)
         end)
+        handler:HookScript("OnHyperlinkClick", function(_, link, _, button)
+            SafeCall(OnChatEmoteClick, link, button)
+        end)
 
         -- Do not clear on OnHyperlinkLeave.
 
@@ -1440,6 +1604,9 @@ do
             if frame and frame.HookScript then
                 SafeCall(frame.HookScript, frame, "OnHyperlinkEnter", function(...)
                     SafeCall(OnHyperlinkEnter, ...)
+                end)
+                SafeCall(frame.HookScript, frame, "OnHyperlinkClick", function(_, link, _, button)
+                    SafeCall(OnChatEmoteClick, link, button)
                 end)
             end
 

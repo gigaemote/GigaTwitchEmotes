@@ -412,3 +412,8 @@ TwitchEmotes_animation_metadata[basePath .. "vuh.tga"] = {["nFrames"] = 125, ["f
 TwitchEmotes_animation_metadata[basePath .. "wuh.tga"] = {["nFrames"] = 138, ["frameWidth"] = 44, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 8192, ["framerate"] = 18}
 TwitchEmotes_animation_metadata[basePath .. "waga.tga"] = {["nFrames"] = 14, ["frameWidth"] = 48, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 512, ["framerate"] = 18}
 TwitchEmotes_animation_metadata[basePath .. "yap.tga"] = {["nFrames"] = 253, ["frameWidth"] = 39, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 8192, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "wideBoink.tga"] = {["nFrames"] = 251, ["frameWidth"] = 95, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 8192, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "WhyHeSayFuckMeFor.tga"] = {["nFrames"] = 21, ["frameWidth"] = 31, ["frameHeight"] = 32, ["imageWidth"] = 32, ["imageHeight"] = 1024, ["framerate"] = 12}
+TwitchEmotes_animation_metadata[basePath .. "computah.tga"] = {["nFrames"] = 16, ["frameWidth"] = 96, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 512, ["framerate"] = 18}
+TwitchEmotes_animation_metadata[basePath .. "gangshit.tga"] = {["nFrames"] = 63, ["frameWidth"] = 60, ["frameHeight"] = 32, ["imageWidth"] = 64, ["imageHeight"] = 2048, ["framerate"] = 30}
+TwitchEmotes_animation_metadata[basePath .. "thatsCrazy.tga"] = {["nFrames"] = 73, ["frameWidth"] = 96, ["frameHeight"] = 32, ["imageWidth"] = 128, ["imageHeight"] = 4096, ["framerate"] = 12}

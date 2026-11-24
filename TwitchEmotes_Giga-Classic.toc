@@ -1,9 +1,12 @@
 ## Interface: 16001
-## Version: 2.1.2
+## Version: 2.2.0
 ## Title: Giga Twitch Emotes
 ## SavedVariables: Giga_Settings
+## SavedVariablesPerCharacter: Giga_BuffTracker, Giga_KillTracker
 ## Dependencies: TwitchEmotes
 emotes.lua
 nsfw_emotes.lua
 animation.lua
 main.lua
+bufftracker.lua
+killtracker.lua

@@ -3,7 +3,10 @@
 ## Title: Giga Twitch Emotes
 ## Dependencies: TwitchEmotes
 ## SavedVariables: Giga_Settings
+## SavedVariablesPerCharacter: Giga_BuffTracker, Giga_KillTracker
 emotes.lua
 nsfw_emotes.lua
 animation.lua
 main.lua
+bufftracker.lua
+killtracker.lua
